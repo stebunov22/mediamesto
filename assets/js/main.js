@@ -47,7 +47,7 @@
 
       window.scrollTo({
         top: Math.max(0, targetY),
-        behavior: "smooth"
+        behavior: "auto"
       });
     }
 
@@ -1109,10 +1109,7 @@
 
         setTimeout(() => {
           const top = card.getBoundingClientRect().top + window.pageYOffset - 110;
-          window.scrollTo({
-            top: Math.max(0, top),
-            behavior: "smooth"
-          });
+          window.scrollTo(0, Math.max(0, top));
         }, 40);
       });
     }

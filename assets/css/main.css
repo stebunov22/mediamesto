@@ -1,4 +1,24 @@
 
+/* ===== IFRAME: УБРАТЬ ВИДИМЫЙ СКРОЛЛБАР GITHUB-СТРАНИЦЫ ===== */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #090909;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+
+
 /* ===== ГЛОБАЛЬНЫЙ СБРОС ДЛЯ GITHUB/TILDA IFRAME ===== */
 html,
 body {
@@ -3783,7 +3803,7 @@ body {
 
 /* ===== ЗАПАСНОЙ ПЛАВНЫЙ СКРОЛЛ ДЛЯ ЯКОРЕЙ ===== */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 
@@ -4845,13 +4865,13 @@ html {
 
 
 
-/* ===== БЛОК 2: ДИНАМИЧЕСКАЯ ВЫСОТА ПО СОДЕРЖИМОМУ ===== */
+/* ===== БЛОК 2: НОРМАЛЬНАЯ ДИНАМИЧЕСКАЯ ВЫСОТА ===== */
 .eldar-video-roulette {
   height: auto;
   min-height: 0;
   max-height: none;
-  padding-top: 28px;
-  padding-bottom: 28px;
+  padding-top: 18px;
+  padding-bottom: 18px;
   display: block;
   overflow: hidden;
 }
@@ -4865,17 +4885,19 @@ html {
 }
 
 .eldar-video-roulette__track {
-  position: relative;
   height: auto;
   min-height: 0;
   max-height: none;
-  align-items: stretch;
+  align-items: flex-start;
 }
 
 .eldar-video-roulette__item {
+  flex: 0 0 150px;
+  width: 150px;
   height: auto;
   min-height: 0;
   max-height: none;
+  aspect-ratio: 9 / 16;
 }
 
 .eldar-video-roulette__placeholder {
@@ -4885,14 +4907,24 @@ html {
 
 @media (max-width: 960px) {
   .eldar-video-roulette {
-    padding-top: 22px;
-    padding-bottom: 22px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .eldar-video-roulette__item {
+    flex-basis: 130px;
+    width: 130px;
   }
 }
 
 @media (max-width: 480px) {
   .eldar-video-roulette {
-    padding-top: 18px;
-    padding-bottom: 18px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .eldar-video-roulette__item {
+    flex-basis: 112px;
+    width: 112px;
   }
 }
