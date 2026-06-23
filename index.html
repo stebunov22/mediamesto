@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediaMesto — цифровая реклама</title>
+  <meta name="description" content="MediaMesto — цифровая реклама в местах трафика.">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<!-- ОБЪЕДИНЕННОЕ ТЕЛО ЛЕНДИНГА / TILDA HTML -->
+<!-- Вставлять в тело страницы/HTML-блок. Стили и скрипты вынесены в отдельные файлы. -->
+
+<!-- ===== ЗАКРЕПЛЁННОЕ МЕНЮ ЛЕНДИНГА ===== -->
+<nav class="eld-site-menu" data-eld-menu>
+  <div class="eld-site-menu-inner">
+    <a class="eld-site-logo" href="#eld-lpr-offer" data-smooth-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-lpr-offer')">
+      <span class="eld-site-logo-mark">AD</span>
+      <span class="eld-site-logo-text">Загородная реклама</span>
+    </a>
+
+    <div class="eld-site-right">
+      <div class="eld-site-nav" data-eld-site-nav>
+        <a href="#eld-cases" data-smooth-link data-menu-link data-menu-target="eld-cases" onclick="return window.eldSmoothScrollToBlock(event, '#eld-cases')">Кейсы</a>
+        <a href="#eld-locations" data-smooth-link data-menu-link data-menu-target="eld-locations" onclick="return window.eldSmoothScrollToBlock(event, '#eld-locations')">Локации</a>
+        <a href="#eld-tariffs" data-smooth-link data-menu-link data-menu-target="eld-tariffs" onclick="return window.eldSmoothScrollToBlock(event, '#eld-tariffs')">Тарифы</a>
+        <a href="#eld-blog" data-smooth-link data-menu-link data-menu-target="eld-blog" onclick="return window.eldSmoothScrollToBlock(event, '#eld-blog')">Блог</a>
+        <a href="#eld-contacts" data-smooth-link data-menu-link data-menu-target="eld-contacts" onclick="return window.eldSmoothScrollToBlock(event, '#eld-contacts')">Контакты</a>
+      </div>
+
+      <div class="eld-site-actions">
+        <a class="eld-site-social" href="https://t.me/podsvetipro" target="_blank" rel="noopener" aria-label="Telegram">
+          <svg class="eld-site-social-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21.8 4.4c.3-1.2-.8-1.8-1.8-1.4L2.8 9.6c-1.2.5-1.2 1.6-.2 1.9l4.4 1.4 1.7 5.4c.2.7.5.9 1 .9.5 0 .8-.2 1.2-.6l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.9l3.1-14.6ZM8.4 12.5l8.7-5.5c.4-.2.8-.1.5.2l-7.1 6.4-.3 3.1-1.8-4.2Z"/>
+          </svg>
+          <span>Telegram</span>
+        </a>
+        <a class="eld-site-phone" href="tel:+79999999999">+7 (999) 999-99-99</a>
+        <a class="eld-site-order" href="#eld-tariffs" data-smooth-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-tariffs')">Заказать рекламу</a>
+      </div>
+    </div>
+
+    <button class="eld-mobile-burger" type="button" data-mobile-menu-open aria-label="Открыть меню" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="eld-mobile-menu-backdrop" data-mobile-menu-close hidden></div>
+
+  <aside class="eld-mobile-menu-panel" data-mobile-menu-panel aria-hidden="true" hidden>
+    <div class="eld-mobile-menu-head">
+      <div class="eld-site-logo eld-mobile-panel-logo">
+        <span class="eld-site-logo-mark">AD</span>
+        <span class="eld-site-logo-text">Загородная реклама</span>
+      </div>
+      <button class="eld-mobile-menu-close" type="button" data-mobile-menu-close aria-label="Закрыть меню">×</button>
+    </div>
+
+    <div class="eld-mobile-menu-links">
+      <a href="#eld-cases" data-smooth-link data-mobile-menu-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-cases')">Кейсы</a>
+      <a href="#eld-locations" data-smooth-link data-mobile-menu-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-locations')">Локации</a>
+      <a href="#eld-tariffs" data-smooth-link data-mobile-menu-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-tariffs')">Тарифы</a>
+      <a href="#eld-blog" data-smooth-link data-mobile-menu-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-blog')">Блог</a>
+      <a href="#eld-contacts" data-smooth-link data-mobile-menu-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-contacts')">Контакты</a>
+    </div>
+
+    <div class="eld-mobile-menu-actions">
+      <a class="eld-site-social" href="https://t.me/podsvetipro" target="_blank" rel="noopener" aria-label="Telegram">
+        <svg class="eld-site-social-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21.8 4.4c.3-1.2-.8-1.8-1.8-1.4L2.8 9.6c-1.2.5-1.2 1.6-.2 1.9l4.4 1.4 1.7 5.4c.2.7.5.9 1 .9.5 0 .8-.2 1.2-.6l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.9l3.1-14.6ZM8.4 12.5l8.7-5.5c.4-.2.8-.1.5.2l-7.1 6.4-.3 3.1-1.8-4.2Z"/>
+        </svg>
+        <span>Telegram</span>
+      </a>
+      <a class="eld-site-phone" href="tel:+79999999999">+7 (999) 999-99-99</a>
+      <a class="eld-site-order" href="#eld-tariffs" data-smooth-link data-mobile-menu-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-tariffs')">Заказать рекламу</a>
+    </div>
+  </aside>
+</nav>
+
+<!-- ===== НОВЫЙ ВЕРХНИЙ БЛОК / ЛПР + ФОРМА ===== -->
+<section class="eld-lpr-section" id="eld-lpr-offer">
+  <div class="eld-lpr-wrap">
+    <div class="eld-lpr-card">
+      <div class="eld-lpr-content">
+        <h2>100% попадание в ЛПР. Вашу рекламу увидят владельцы загородных домов, пока они стоят у шлагбаума</h2>
+
+        <div class="eld-lpr-text-list" aria-label="Ключевые преимущества аудитории">
+          <p>Никаких случайных прохожих и транзитного трафика.</p>
+          <p>Только платежеспособная загородная аудитория: собственники бизнеса, топ-менеджеры, хозяйки больших домов.</p>
+          <p>Ролик включается именно тогда, когда человек ждет открытия ворот и его внимание максимально сфокусировано.</p>
+        </div>
+
+        <a class="eld-lpr-price-link" href="#eld-tariffs" data-smooth-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-tariffs')">Смотреть цены</a>
+      </div>
+
+      <div class="eld-lpr-form-box">
+        <form class="eld-lpr-form" data-lpr-form novalidate>
+          <h3>Получить консультацию</h3>
+          <p>Заполните данные и мы свяжемся с вами.</p>
+
+          <div class="eld-lpr-field">
+            <label class="eld-form-field-title">Имя</label>
+            <input type="text" name="name" placeholder="Имя" data-lpr-name>
+            <div class="eld-lpr-error" data-lpr-name-error></div>
+          </div>
+
+          <div class="eld-lpr-field">
+            <label class="eld-form-field-title">Номер телефона</label>
+            <input type="tel" name="phone" placeholder="Номер телефона" data-lpr-phone>
+            <div class="eld-lpr-error" data-lpr-phone-error></div>
+          </div>
+
+          <div class="eld-lpr-field">
+            <label class="eld-form-field-title">Комментарий</label>
+            <textarea name="comment" placeholder="Введите свой комментарий" data-lpr-comment></textarea>
+          </div>
+
+          <label class="eld-lpr-policy">
+            <input type="checkbox" name="policy" data-lpr-policy>
+            <span>Я принимаю <a href="/privacy" target="_blank" rel="noopener">политику обработки персональных данных</a> и даю согласие на обработку заявки.</span>
+          </label>
+          <div class="eld-lpr-error" data-lpr-policy-error></div>
+
+          <input type="hidden" name="summary" data-lpr-summary>
+
+          <button type="submit" class="eld-lpr-submit">Отправить заявку</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== БЛОК 1 ===== -->
+<!-- TILDA HERO BLOCK / ORANGE / SAFARI MOBILE VIDEO VERSION -->
+<div id="traffic-ads-hero-orange-safari" class="traffic-ads-hero-orange-safari">
+  <div class="tahos-orb tahos-orb-1"></div>
+  <div class="tahos-orb tahos-orb-2"></div>
+  <div class="tahos-orb tahos-orb-3"></div>
+
+  <section class="tahos-card">
+    <div class="tahos-grid">
+      <div class="tahos-content">
+        <div class="tahos-copy">
+          <h1 class="tahos-title">Цифровая реклама <span>в местах трафика</span></h1>
+          <p class="tahos-subtitle">Реклама на экранах в точках ежедневного движения вашей аудитории.</p>
+          <div class="tahos-mobile-video-box" aria-label="Видео рекламы">
+            <video autoplay muted loop playsinline webkit-playsinline preload="metadata"
+              class="tahos-mobile-video"
+            >
+              <source src="assets/video/video-rek-hero.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <div class="tahos-stats" aria-label="Преимущества размещения">
+          <div class="tahos-stat">
+            <div class="tahos-stat-value">Стоимость</div>
+            <div class="tahos-stat-text">от 220 рублей в день</div>
+          </div>
+
+          <div class="tahos-stat">
+            <div class="tahos-stat-value">Подготовка</div>
+            <div class="tahos-stat-text">Монтаж ролика включен</div>
+          </div>
+
+          <div class="tahos-stat">
+            <div class="tahos-stat-value">Запуск</div>
+            <div class="tahos-stat-text">Покажем ролик через 12 часов после оплаты</div>
+          </div>
+
+          <div class="tahos-stat">
+            <div class="tahos-stat-value">Эксклюзивность</div>
+            <div class="tahos-stat-text">Не дублируем ниши на одном экране</div>
+          </div>
+        </div>
+
+        <div class="tahos-actions">
+          <a class="tahos-btn" href="#next-block">Заказать</a>
+        </div>
+      </div>
+
+      <div class="tahos-visual" aria-hidden="true">
+        <div class="tahos-stand-wrap">
+          <div class="tahos-stand-shadow"></div>
+
+          <div class="tahos-stand">
+            <div class="tahos-stand-top"></div>
+
+            <div class="tahos-screen-shell">
+              <div class="tahos-screen">
+                <div class="tahos-video-fallback"></div>
+
+                <video autoplay muted loop playsinline webkit-playsinline preload="metadata"
+                  class="tahos-video"
+                  poster=""
+                >
+                  <source src="assets/video/video-rek-hero.mp4" type="video/mp4">
+                </video>
+
+                <div class="tahos-screen-gloss"></div>
+              </div>
+            </div>
+
+            <div class="tahos-stand-neck"></div>
+            <div class="tahos-stand-base"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===== БЛОК 2 ===== -->
+<!-- VIDEO ROULETTE BLOCK FOR TILDA -->
+<section class="eldar-video-roulette" aria-label="Лента изображений рекламы">
+  <div class="eldar-video-roulette__inner">
+    <div class="eldar-video-roulette__track">
+      <div class="eldar-video-roulette__item">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item" aria-hidden="true">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item" aria-hidden="true">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item" aria-hidden="true">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item" aria-hidden="true">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item" aria-hidden="true">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item" aria-hidden="true">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item" aria-hidden="true">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item" aria-hidden="true">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item" aria-hidden="true">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+      <div class="eldar-video-roulette__item" aria-hidden="true">
+        <div class="eldar-video-roulette__placeholder">
+          <span>Изображение</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== БЛОК 3 ===== -->
+<!-- CASES BLOCK / TILDA HTML BLOCK -->
+<section class="eld-cases-section" id="eld-cases">
+  <div class="eld-cases-wrap">
+    <div class="eld-cases-head">
+      <h2>Наши кейсы</h2>
+    </div>
+
+    <div class="eld-cases-grid">
+      <article class="eld-case-card">
+        <div class="eld-case-image">
+          <span class="eld-case-direction">Рестораны и кафе</span>
+        </div>
+        <div class="eld-case-body">
+          <div class="eld-case-top">
+            <h3>Ресторан «У Озера»</h3>
+          </div>
+          <div class="eld-case-tags">
+            <span>+18 броней за месяц</span>
+            <span>Рост заявок в VK</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="eld-case-card">
+        <div class="eld-case-image">
+          <span class="eld-case-direction">Дизайн мебели</span>
+        </div>
+        <div class="eld-case-body">
+          <div class="eld-case-top">
+            <h3>Studio Mebel</h3>
+          </div>
+          <div class="eld-case-tags">
+            <span>+11 заявок на замер</span>
+            <span>Новые клиенты из района</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="eld-case-card">
+        <div class="eld-case-image">
+          <span class="eld-case-direction">Ремонт домов</span>
+        </div>
+        <div class="eld-case-body">
+          <div class="eld-case-top">
+            <h3>ДомРемонт 47</h3>
+          </div>
+          <div class="eld-case-tags">
+            <span>+15 клиентов за месяц</span>
+            <span>Спрос на услуги рядом</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="eld-case-card">
+        <div class="eld-case-image">
+          <span class="eld-case-direction">Ремонт машин</span>
+        </div>
+        <div class="eld-case-body">
+          <div class="eld-case-top">
+            <h3>AutoHelp Service</h3>
+          </div>
+          <div class="eld-case-tags">
+            <span>+23 обращения</span>
+            <span>Заявки на диагностику</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="eld-case-card">
+        <div class="eld-case-image">
+          <span class="eld-case-direction">Ландшафт и участки</span>
+        </div>
+        <div class="eld-case-body">
+          <div class="eld-case-top">
+            <h3>Green Yard</h3>
+          </div>
+          <div class="eld-case-tags">
+            <span>+9 заказов на расчёт</span>
+            <span>Лиды из коттеджей</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="eld-case-card">
+        <div class="eld-case-image">
+          <span class="eld-case-direction">Клининг и уборка</span>
+        </div>
+        <div class="eld-case-body">
+          <div class="eld-case-top">
+            <h3>ЧистоДом</h3>
+          </div>
+          <div class="eld-case-tags">
+            <span>+31 заявка</span>
+            <span>Быстрый старт рекламы</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== БЛОК 4 ===== -->
+<!-- AD POINTS MAP / CARDS ARE MAP OBJECTS / TILDA HTML BLOCK -->
+<section class="eld-points-section" id="eld-locations">
+  <div class="eld-points-wrap">
+    <div class="eld-points-head">
+      <h2>Наши локации</h2>
+    </div>
+
+    <div class="eld-map" data-eld-map>
+      <div class="eld-map-canvas" data-eld-map-canvas></div>
+      <div class="eld-map-edge-dots" data-eld-edge-dots></div>
+
+      <aside class="eld-map-panel" data-eld-panel aria-hidden="true">
+        <button class="eld-map-panel-close" type="button" data-eld-panel-close aria-label="Закрыть">×</button>
+        <div class="eld-map-panel-inner" data-eld-panel-inner></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===== НОВЫЙ БЛОК ПОСЛЕ ЛОКАЦИЙ / ДИЗАЙН ПОД КЛЮЧ ===== -->
+<section class="eld-design-launch-section" id="eld-design-launch">
+  <div class="eld-design-launch-wrap">
+    <div class="eld-design-launch-card">
+      <div class="eld-design-launch-content">
+        <h2>
+          <span class="eld-design-launch-outline">Запуск загородной рекламы <span class="eld-design-launch-bg">под ключ</span></span><br>
+          <span class="eld-design-launch-main-line"><span class="eld-design-launch-accent">Смонтируем</span> B2B-ролик и настроим трансляцию <span class="eld-design-launch-accent">за 3 дня</span></span>
+        </h2>
+        <p>У вас нет готового видео? Не проблема. Пришлите нам фото своих работ или USP, и наши дизайнеры бесплатно создадут сочный, цепляющий макет под вертикальный формат экрана. Начните привлекать премиальных клиентов без лишней суеты.</p>
+      </div>
+
+      <div class="eld-design-launch-form-box">
+        <form class="eld-design-launch-form" data-design-form novalidate>
+          <h3>Создать дизайн</h3>
+          <p>Оставьте контакты и ссылку на материалы.</p>
+
+          <div class="eld-design-launch-field">
+            <label class="eld-form-field-title">Имя</label>
+            <input type="text" name="name" placeholder="Имя" data-design-name>
+            <div class="eld-design-launch-error" data-design-name-error></div>
+          </div>
+
+          <div class="eld-design-launch-field">
+            <label class="eld-form-field-title">Номер телефона</label>
+            <input type="tel" name="phone" placeholder="Номер телефона" data-design-phone>
+            <div class="eld-design-launch-error" data-design-phone-error></div>
+          </div>
+
+          <div class="eld-design-launch-field">
+            <label class="eld-form-field-title">Ссылка на диск</label>
+            <input type="url" name="disk_link" placeholder="Ссылка на диск" data-design-link>
+            <div class="eld-design-launch-error" data-design-link-error></div>
+          </div>
+
+          <input type="hidden" name="summary" value="Заявка на создание дизайна для загородной рекламы">
+
+          <label class="eld-design-launch-policy">
+            <input type="checkbox" name="policy" data-design-policy>
+            <span>Я принимаю <a href="/privacy" target="_blank" rel="noopener">политику обработки персональных данных</a> и даю согласие на обработку заявки.</span>
+          </label>
+          <div class="eld-design-launch-error" data-design-policy-error></div>
+
+          <button type="submit" class="eld-design-launch-submit">Создать дизайн</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== БЛОК 5 / НОВЫЕ ТАРИФЫ ===== -->
+<section class="eld-tcalc-section" id="eld-tariffs">
+  <div class="eld-tcalc-wrap">
+    <div class="eld-tcalc-head">
+      <h2>Тарифы</h2>
+      <p class="eld-tcalc-subtitle">Дополнительная <span>скидка -10%</span> при выборе от 2 мест размещения</p>
+    </div>
+
+    <div class="eld-tcalc-grid">
+      <article class="eld-tcalc-card" data-tariff-card data-duration="5" data-tariff="Ролик 5 секунд">
+        <div class="eld-tcalc-body">
+          <div class="eld-tcalc-meta">
+            <span class="eld-tcalc-chip eld-tcalc-chip-accent" data-air-time>30 часов эфира</span>
+            <span class="eld-tcalc-badge" data-economy></span>
+          </div>
+
+          <h3>Ролик 5 секунд</h3>
+
+          <div class="eld-tcalc-price-row">
+            <div>
+              <div class="eld-tcalc-price-line">
+                <div class="eld-tcalc-price" data-price>13 900 ₽</div>
+                <div class="eld-tcalc-old" data-old></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="eld-tcalc-group">
+            <div class="eld-tcalc-label">Срок размещения</div>
+            <div class="eld-tcalc-options" data-months>
+              <button type="button" class="is-active" data-period="1">1 месяц</button>
+              <button type="button" data-period="3">3 месяца</button>
+              <button type="button" data-period="6">6 месяцев <b class="eld-tcalc-gift">+1 в подарок</b></button>
+              <button type="button" data-period="12">12 месяцев <b class="eld-tcalc-gift">+3 в подарок</b></button>
+            </div>
+          </div>
+
+          <div class="eld-tcalc-group">
+            <div class="eld-tcalc-label">Места размещения</div>
+            <div class="eld-tcalc-places" data-places>
+              <label><input type="checkbox" checked> <span>Разметелево</span></label>
+              <label><input type="checkbox"> <span>Дружное</span></label>
+              <label><input type="checkbox"> <span>Энергетиков</span></label>
+            </div>
+            <div class="eld-tcalc-place-note" data-place-note>Выбрано 1 место</div>
+          </div>
+
+          <button class="eld-tcalc-open-form" type="button" data-open-form>
+            Оставить заявку
+          </button>
+
+          <form class="eld-tcalc-form eld-tcalc-step-form" data-form novalidate>
+            <div class="eld-tcalc-selected">
+              <div class="eld-tcalc-selected-row">
+                <div class="eld-tcalc-selected-title">Срок размещения</div>
+                <div class="eld-tcalc-selected-tags" data-selected-period></div>
+              </div>
+
+              <div class="eld-tcalc-selected-row">
+                <div class="eld-tcalc-selected-title">Места размещения</div>
+                <div class="eld-tcalc-selected-tags" data-selected-places></div>
+              </div>
+            </div>
+            <div class="eld-tcalc-field">
+              <label class="eld-form-field-title">Имя</label>
+              <input type="text" name="name" placeholder="Имя" data-name-input>
+              <div class="eld-tcalc-error" data-name-error></div>
+            </div>
+
+            <div class="eld-tcalc-field">
+              <label class="eld-form-field-title">Номер телефона</label>
+              <input type="tel" name="phone" placeholder="Номер телефона" data-phone-input>
+              <div class="eld-tcalc-error" data-phone-error></div>
+            </div>
+
+            <input type="hidden" name="tariff" data-form-tariff>
+            <input type="hidden" name="summary" data-form-summary>
+
+            <label class="eld-tcalc-policy">
+              <input type="checkbox" name="policy" data-tcalc-policy>
+              <span>Я принимаю <a href="/privacy" target="_blank" rel="noopener">политику обработки персональных данных</a> и даю согласие на обработку заявки.</span>
+            </label>
+            <div class="eld-tcalc-error" data-tcalc-policy-error></div>
+
+            <div class="eld-tcalc-step-actions">
+              <button type="button" class="eld-tcalc-back" data-back-step>Назад к выбору</button>
+              <button type="submit">Отправить</button>
+            </div>
+          </form>
+        </div>
+      </article>
+
+      <article class="eld-tcalc-card eld-tcalc-card-popular" data-tariff-card data-duration="10" data-tariff="Ролик 10 секунд">
+        <div class="eld-tcalc-body">
+          <div class="eld-tcalc-meta">
+            <span class="eld-tcalc-chip eld-tcalc-chip-accent" data-air-time>60 часов эфира</span>
+            <span class="eld-tcalc-chip eld-tcalc-chip-sale">-15%</span>
+            <span class="eld-tcalc-badge" data-economy></span>
+          </div>
+
+          <h3>Ролик 10 секунд</h3>
+
+          <div class="eld-tcalc-price-row">
+            <div>
+              <div class="eld-tcalc-price-line">
+                <div class="eld-tcalc-price" data-price>22 900 ₽</div>
+                <div class="eld-tcalc-old" data-old>26 900 ₽</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="eld-tcalc-group">
+            <div class="eld-tcalc-label">Срок размещения</div>
+            <div class="eld-tcalc-options" data-months>
+              <button type="button" class="is-active" data-period="1">1 месяц</button>
+              <button type="button" data-period="3">3 месяца</button>
+              <button type="button" data-period="6">6 месяцев <b class="eld-tcalc-gift">+1 в подарок</b></button>
+              <button type="button" data-period="12">12 месяцев <b class="eld-tcalc-gift">+3 в подарок</b></button>
+            </div>
+          </div>
+
+          <div class="eld-tcalc-group">
+            <div class="eld-tcalc-label">Места размещения</div>
+            <div class="eld-tcalc-places" data-places>
+              <label><input type="checkbox" checked> <span>Разметелево</span></label>
+              <label><input type="checkbox"> <span>Дружное</span></label>
+              <label><input type="checkbox"> <span>Энергетиков</span></label>
+            </div>
+            <div class="eld-tcalc-place-note" data-place-note>Выбрано 1 место</div>
+          </div>
+
+          <button class="eld-tcalc-open-form" type="button" data-open-form>
+            Оставить заявку
+          </button>
+
+          <form class="eld-tcalc-form eld-tcalc-step-form" data-form novalidate>
+            <div class="eld-tcalc-selected">
+              <div class="eld-tcalc-selected-row">
+                <div class="eld-tcalc-selected-title">Срок размещения</div>
+                <div class="eld-tcalc-selected-tags" data-selected-period></div>
+              </div>
+
+              <div class="eld-tcalc-selected-row">
+                <div class="eld-tcalc-selected-title">Места размещения</div>
+                <div class="eld-tcalc-selected-tags" data-selected-places></div>
+              </div>
+            </div>
+            <div class="eld-tcalc-field">
+              <label class="eld-form-field-title">Имя</label>
+              <input type="text" name="name" placeholder="Имя" data-name-input>
+              <div class="eld-tcalc-error" data-name-error></div>
+            </div>
+
+            <div class="eld-tcalc-field">
+              <label class="eld-form-field-title">Номер телефона</label>
+              <input type="tel" name="phone" placeholder="Номер телефона" data-phone-input>
+              <div class="eld-tcalc-error" data-phone-error></div>
+            </div>
+
+            <input type="hidden" name="tariff" data-form-tariff>
+            <input type="hidden" name="summary" data-form-summary>
+
+            <label class="eld-tcalc-policy">
+              <input type="checkbox" name="policy" data-tcalc-policy>
+              <span>Я принимаю <a href="/privacy" target="_blank" rel="noopener">политику обработки персональных данных</a> и даю согласие на обработку заявки.</span>
+            </label>
+            <div class="eld-tcalc-error" data-tcalc-policy-error></div>
+
+            <div class="eld-tcalc-step-actions">
+              <button type="button" class="eld-tcalc-back" data-back-step>Назад к выбору</button>
+              <button type="submit">Отправить</button>
+            </div>
+          </form>
+        </div>
+      </article>
+
+      <article class="eld-tcalc-card" data-tariff-card data-duration="15" data-tariff="Ролик 15 секунд">
+        <div class="eld-tcalc-body">
+          <div class="eld-tcalc-meta">
+            <span class="eld-tcalc-chip eld-tcalc-chip-accent" data-air-time>90 часов эфира</span>
+            <span class="eld-tcalc-chip eld-tcalc-chip-sale">-25%</span>
+            <span class="eld-tcalc-badge" data-economy></span>
+          </div>
+
+          <h3>Ролик 15 секунд</h3>
+
+          <div class="eld-tcalc-price-row">
+            <div>
+              <div class="eld-tcalc-price-line">
+                <div class="eld-tcalc-price" data-price>29 900 ₽</div>
+                <div class="eld-tcalc-old" data-old>39 900 ₽</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="eld-tcalc-group">
+            <div class="eld-tcalc-label">Срок размещения</div>
+            <div class="eld-tcalc-options" data-months>
+              <button type="button" class="is-active" data-period="1">1 месяц</button>
+              <button type="button" data-period="3">3 месяца</button>
+              <button type="button" data-period="6">6 месяцев <b class="eld-tcalc-gift">+1 в подарок</b></button>
+              <button type="button" data-period="12">12 месяцев <b class="eld-tcalc-gift">+3 в подарок</b></button>
+            </div>
+          </div>
+
+          <div class="eld-tcalc-group">
+            <div class="eld-tcalc-label">Места размещения</div>
+            <div class="eld-tcalc-places" data-places>
+              <label><input type="checkbox" checked> <span>Разметелево</span></label>
+              <label><input type="checkbox"> <span>Дружное</span></label>
+              <label><input type="checkbox"> <span>Энергетиков</span></label>
+            </div>
+            <div class="eld-tcalc-place-note" data-place-note>Выбрано 1 место</div>
+          </div>
+
+          <button class="eld-tcalc-open-form" type="button" data-open-form>
+            Оставить заявку
+          </button>
+
+          <form class="eld-tcalc-form eld-tcalc-step-form" data-form novalidate>
+            <div class="eld-tcalc-selected">
+              <div class="eld-tcalc-selected-row">
+                <div class="eld-tcalc-selected-title">Срок размещения</div>
+                <div class="eld-tcalc-selected-tags" data-selected-period></div>
+              </div>
+
+              <div class="eld-tcalc-selected-row">
+                <div class="eld-tcalc-selected-title">Места размещения</div>
+                <div class="eld-tcalc-selected-tags" data-selected-places></div>
+              </div>
+            </div>
+            <div class="eld-tcalc-field">
+              <label class="eld-form-field-title">Имя</label>
+              <input type="text" name="name" placeholder="Имя" data-name-input>
+              <div class="eld-tcalc-error" data-name-error></div>
+            </div>
+
+            <div class="eld-tcalc-field">
+              <label class="eld-form-field-title">Номер телефона</label>
+              <input type="tel" name="phone" placeholder="Номер телефона" data-phone-input>
+              <div class="eld-tcalc-error" data-phone-error></div>
+            </div>
+
+            <input type="hidden" name="tariff" data-form-tariff>
+            <input type="hidden" name="summary" data-form-summary>
+
+            <label class="eld-tcalc-policy">
+              <input type="checkbox" name="policy" data-tcalc-policy>
+              <span>Я принимаю <a href="/privacy" target="_blank" rel="noopener">политику обработки персональных данных</a> и даю согласие на обработку заявки.</span>
+            </label>
+            <div class="eld-tcalc-error" data-tcalc-policy-error></div>
+
+            <div class="eld-tcalc-step-actions">
+              <button type="button" class="eld-tcalc-back" data-back-step>Назад к выбору</button>
+              <button type="submit">Отправить</button>
+            </div>
+          </form>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== БЛОК 6 ===== -->
+<!-- CUSTOM BLOG FROM TILDA RSS / TILDA HTML BLOCK -->
+<section class="eld-rss-blog-section" id="eld-blog" data-feed-url="https://kjbskdjf.tilda.ws/rss-feed-872970775431.xml" data-all-url="https://kjbskdjf.tilda.ws/bloooog">
+  <div class="eld-rss-blog-wrap">
+    <div class="eld-rss-blog-head">
+      <div class="eld-rss-blog-title-box">
+        <h2>Блог</h2>
+        <p>Разбираем рекламу на экранах, показываем кейсы и делимся идеями для продвижения бизнеса в районе.</p>
+      </div>
+
+      <a class="eld-rss-blog-all eld-rss-blog-all-desktop" href="/blog">
+        Смотреть все
+      </a>
+    </div>
+
+    <div class="eld-rss-blog-filters" data-rss-filters>
+      <button class="is-active" type="button" data-filter="all">Все статьи</button>
+      <button type="button" data-filter="Кейсы">Кейсы</button>
+      <button type="button" data-filter="О рекламе">О рекламе</button>
+      <button type="button" data-filter="Прочее">Прочее</button>
+    </div>
+
+    <div class="eld-rss-blog-state" data-rss-state>Загружаем статьи...</div>
+
+    <div class="eld-rss-blog-grid" data-rss-grid></div>
+
+    <div class="eld-rss-blog-bottom">
+      <a class="eld-rss-blog-all eld-rss-blog-all-mobile" href="/blog">
+        Смотреть все
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== БЛОК КОНТАКТОВ / ЗАПОЛНИМ ПОЗЖЕ ===== -->
+<section class="eld-contacts-section" id="eld-contacts">
+  <div class="eld-contacts-wrap">
+    <div class="eld-contacts-card">
+      <h2>Контакты</h2>
+      <p>Скоро добавим сюда финальные контакты и форму связи.</p>
+    </div>
+  </div>
+</section>
+
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
