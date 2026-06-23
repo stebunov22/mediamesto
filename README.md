@@ -6,6 +6,7 @@
 
 ```text
 index.html
+blog/
 assets/
 pages/
 README.md

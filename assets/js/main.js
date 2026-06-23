@@ -47,7 +47,7 @@
 
       window.scrollTo({
         top: Math.max(0, targetY),
-        behavior: "auto"
+        behavior: "smooth"
       });
     }
 
@@ -1109,7 +1109,10 @@
 
         setTimeout(() => {
           const top = card.getBoundingClientRect().top + window.pageYOffset - 110;
-          window.scrollTo(0, Math.max(0, top));
+          window.scrollTo({
+            top: Math.max(0, top),
+            behavior: "smooth"
+          });
         }, 40);
       });
     }
@@ -1346,9 +1349,7 @@
     function render() {
       const filtered = posts.filter(function (post) {
         return activeFilter === "all" || (post.categories || [post.category]).indexOf(activeFilter) !== -1;
-      });
-      var limit = root.dataset.blogLimit === "all" ? filtered.length : 4;
-      filtered = filtered.slice(0, limit);
+      }).slice(0, 4);
 
       if (!grid) return;
 
@@ -1393,16 +1394,11 @@
       });
     });
 
-
-    function eldFetchBlogFeed(url) {
-      return fetch(url, { cache: "no-store" }).catch(function () {
-        return fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(url), { cache: "no-store" });
-      });
-    }
-
     showState("Загружаем статьи...");
 
-    eldFetchBlogFeed(feedUrl)
+    fetch(feedUrl, {
+      cache: "no-store"
+    })
       .then(function (response) {
         if (!response.ok) throw new Error("Не удалось загрузить RSS");
         return response.text();
@@ -1444,8 +1440,6 @@
   var nameError = form.querySelector("[data-design-name-error]");
   var phoneError = form.querySelector("[data-design-phone-error]");
   var linkError = form.querySelector("[data-design-link-error]");
-  var designPolicyInput = form.querySelector("[data-design-policy]");
-  var designPolicyError = form.querySelector("[data-design-policy-error]");
 
   function validateName(value) {
     var clean = String(value || "").trim();
