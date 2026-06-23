@@ -607,8 +607,7 @@ body::-webkit-scrollbar {
 
 #traffic-ads-hero-orange-safari .tahos-card {
   position: relative;
-  min-height: calc(100svh - 40px);
-  min-height: calc(100vh - 40px);
+  min-height: 640px;
   overflow: hidden;
   border-radius: 32px;
   background:
@@ -635,8 +634,7 @@ body::-webkit-scrollbar {
 #traffic-ads-hero-orange-safari .tahos-grid {
   position: relative;
   z-index: 2;
-  min-height: calc(100svh - 40px);
-  min-height: calc(100vh - 40px);
+  min-height: 640px;
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(260px, .7fr);
   gap: 26px;
@@ -965,7 +963,7 @@ body::-webkit-scrollbar {
 @media screen and (max-width: 959px) {
   #traffic-ads-hero-orange-safari .tahos-card,
   #traffic-ads-hero-orange-safari .tahos-grid {
-    min-height: auto;
+    min-height: 0;
   }
 
   #traffic-ads-hero-orange-safari .tahos-grid {
