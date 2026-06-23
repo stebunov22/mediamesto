@@ -1,21 +1,13 @@
 # MediaMesto
 
-Архив для загрузки в корень репозитория `mediamesto`.
+Загружать содержимое архива в корень репозитория.
 
-## В корне репозитория должно быть
+В корне должно быть:
 
 ```text
 index.html
 assets/
 pages/
-tilda/
 README.md
 .nojekyll
 ```
-
-## GitHub Pages
-
-Settings → Pages → Deploy from a branch → main → /root → Save.
-
-Ссылка:
-https://stebunov22.github.io/mediamesto/

@@ -1,5 +1,5 @@
 
-/* ===== СБРОС БЕЛЫХ ПОЛОС ПО КРАЯМ СТРАНИЦЫ ===== */
+/* ===== ГЛОБАЛЬНЫЙ СБРОС ДЛЯ GITHUB/TILDA IFRAME ===== */
 html,
 body {
   width: 100%;
@@ -8,10 +8,6 @@ body {
   padding: 0;
   background: #090909;
   overflow-x: hidden;
-}
-
-body {
-  position: relative;
 }
 
 * {
@@ -3787,7 +3783,7 @@ body {
 
 /* ===== ЗАПАСНОЙ ПЛАВНЫЙ СКРОЛЛ ДЛЯ ЯКОРЕЙ ===== */
 html {
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
 }
 
 
@@ -4690,12 +4686,62 @@ html {
 }
 
 
-/* ===== ВНУТРЕННИЕ СТРАНИЦЫ GITHUB ===== */
+/* ===== КНОПКИ КЕЙСОВ И СТРАНИЦЫ ===== */
+.eld-cases-head-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: none;
+  width: 100%;
+}
+
+.eld-cases-all,
+.eld-case-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 11px 16px;
+  border-radius: 999px;
+  background: rgba(255, 122, 24, 0.16);
+  border: 1px solid rgba(255, 122, 24, 0.3);
+  color: #ffad5c !important;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 900;
+  text-decoration: none !important;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.eld-cases-all {
+  flex: 0 0 auto;
+  min-height: 48px;
+  padding: 13px 18px;
+  background: linear-gradient(135deg, rgba(255, 122, 24, 1), rgba(255, 191, 87, 0.92));
+  color: #111111 !important;
+  box-shadow: 0 14px 34px rgba(255, 122, 24, 0.22);
+}
+
+.eld-case-link {
+  width: fit-content;
+  margin-top: 16px;
+}
+
+.eld-rss-blog-section-page {
+  min-height: 100vh;
+  padding-top: 120px;
+}
+
+.eld-rss-blog-section-page .eld-rss-blog-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .mm-page {
   min-height: 100vh;
   padding: 120px 20px 80px;
   background: #090909;
-  color: #fff;
+  color: #ffffff;
   font-family: Arial, sans-serif;
 }
 
@@ -4748,7 +4794,7 @@ html {
   border-radius: 26px;
   background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035));
   border: 1px solid rgba(255,255,255,.12);
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -4758,92 +4804,9 @@ html {
   font-weight: 900;
 }
 
-@media (max-width: 760px) {
-  .mm-page {
-    padding-top: 96px;
-  }
-
-  .mm-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-
-/* ===== ПРАВКИ АНИМАЦИЙ И КНОПОК ===== */
-.eld-cases-head-row {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  max-width: none;
-  width: 100%;
-}
-
-.eld-cases-all,
-.eld-case-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 42px;
-  padding: 11px 16px;
-  border-radius: 999px;
-  background: rgba(255, 122, 24, 0.16);
-  border: 1px solid rgba(255, 122, 24, 0.3);
-  color: #ffad5c !important;
-  font-size: 13px;
-  line-height: 1;
-  font-weight: 900;
-  text-decoration: none !important;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-}
-
-.eld-cases-all {
-  flex: 0 0 auto;
-  min-height: 48px;
-  padding: 13px 18px;
-  background: linear-gradient(135deg, rgba(255, 122, 24, 1), rgba(255, 191, 87, 0.92));
-  color: #111111 !important;
-  box-shadow: 0 14px 34px rgba(255, 122, 24, 0.22);
-}
-
-.eld-case-link {
-  width: fit-content;
-  margin-top: 16px;
-}
-
-.eld-cases-all:hover,
-.eld-case-link:hover {
-  transform: translateY(-1px);
-}
-
-.eldar-video-roulette__track {
-  animation-duration: 120s;
-}
-
-.eld-tcalc-price.is-changing {
-  transform: none;
-}
-
-@media (hover: none) {
-  .tahos-stat:hover,
-  .eld-case-card:hover,
-  .eld-rss-blog-card:hover,
-  .eld-tcalc-card:hover,
-  .eld-cases-all:hover,
-  .eld-case-link:hover {
-    transform: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 0.001ms !important;
+@media (max-width: 980px) {
+  .eld-rss-blog-section-page .eld-rss-blog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -4865,82 +4828,71 @@ html {
     padding: 9px 10px;
     font-size: 11px;
   }
-}
 
-
-
-/* ===== СТРАНИЦА ВСЕХ СТАТЕЙ ===== */
-.eld-rss-blog-section-page {
-  min-height: 100vh;
-  padding-top: 120px;
-}
-
-.eld-rss-blog-grid-page {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.eld-rss-blog-grid-page .eld-rss-blog-card {
-  min-height: 100%;
-}
-
-@media (max-width: 980px) {
-  .eld-rss-blog-grid-page {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 640px) {
   .eld-rss-blog-section-page {
     padding-top: 84px;
   }
 
-  .eld-rss-blog-grid-page {
+  .eld-rss-blog-section-page .eld-rss-blog-grid,
+  .mm-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
 
-
-
-/* ===== СТРАНИЦА СТАТЕЙ БЕЗ RSS-ОШИБКИ ===== */
-.eld-rss-blog-section-page {
-  min-height: 100vh;
-  padding-top: 120px;
-}
-
-.eld-rss-blog-section-page .eld-rss-blog-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-@media (max-width: 980px) {
-  .eld-rss-blog-section-page .eld-rss-blog-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 640px) {
-  .eld-rss-blog-section-page {
+  .mm-page {
     padding-top: 84px;
   }
-
-  .eld-rss-blog-section-page .eld-rss-blog-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 
 
-/* ===== МОБИЛЬНОЕ МЕНЮ: УБРАТЬ КРИВУЮ АНИМАЦИЮ ПРИ ПЕРЕХОДЕ ===== */
-@media (max-width: 640px) {
-  .eld-mobile-menu-panel {
-    transition: none;
-  }
+/* ===== БЛОК 2: ДИНАМИЧЕСКАЯ ВЫСОТА ПО СОДЕРЖИМОМУ ===== */
+.eldar-video-roulette {
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  padding-top: 28px;
+  padding-bottom: 28px;
+  display: block;
+  overflow: hidden;
+}
 
-  .eld-mobile-menu-backdrop {
-    transition: none;
-  }
+.eldar-video-roulette__inner {
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  display: block;
+  overflow: hidden;
+}
 
-  .eld-mobile-menu-links a,
-  .eld-mobile-menu-actions a {
-    transition: none;
+.eldar-video-roulette__track {
+  position: relative;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  align-items: stretch;
+}
+
+.eldar-video-roulette__item {
+  height: auto;
+  min-height: 0;
+  max-height: none;
+}
+
+.eldar-video-roulette__placeholder {
+  height: 100%;
+  min-height: 0;
+}
+
+@media (max-width: 960px) {
+  .eldar-video-roulette {
+    padding-top: 22px;
+    padding-bottom: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .eldar-video-roulette {
+    padding-top: 18px;
+    padding-bottom: 18px;
   }
 }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MediaMesto — цифровая реклама</title>
+  <title>MediaMesto</title>
   <meta name="description" content="MediaMesto — цифровая реклама в местах трафика.">
   <link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -59,11 +59,11 @@
     </div>
 
     <div class="eld-mobile-menu-links">
-      <a href="#eld-cases" data-smooth-link data-mobile-menu-link>Кейсы</a>
-      <a href="#eld-locations" data-smooth-link data-mobile-menu-link>Локации</a>
-      <a href="#eld-tariffs" data-smooth-link data-mobile-menu-link>Тарифы</a>
-      <a href="#eld-blog" data-smooth-link data-mobile-menu-link>Блог</a>
-      <a href="#eld-contacts" data-smooth-link data-mobile-menu-link>Контакты</a>
+      <a href="#eld-cases" data-smooth-link data-mobile-menu-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-cases')">Кейсы</a>
+      <a href="#eld-locations" data-smooth-link data-mobile-menu-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-locations')">Локации</a>
+      <a href="#eld-tariffs" data-smooth-link data-mobile-menu-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-tariffs')">Тарифы</a>
+      <a href="#eld-blog" data-smooth-link data-mobile-menu-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-blog')">Блог</a>
+      <a href="#eld-contacts" data-smooth-link data-mobile-menu-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-contacts')">Контакты</a>
     </div>
 
     <div class="eld-mobile-menu-actions">
@@ -74,7 +74,7 @@
         <span>Telegram</span>
       </a>
       <a class="eld-site-phone" href="tel:+79999999999">+7 (999) 999-99-99</a>
-      <a class="eld-site-order" href="#eld-tariffs" data-smooth-link data-mobile-menu-link>Заказать рекламу</a>
+      <a class="eld-site-order" href="#eld-tariffs" data-smooth-link data-mobile-menu-link onclick="return window.eldSmoothScrollToBlock(event, '#eld-tariffs')">Заказать рекламу</a>
     </div>
   </aside>
 </nav>
@@ -150,7 +150,7 @@
             <video autoplay muted loop playsinline webkit-playsinline preload="metadata"
               class="tahos-mobile-video"
             >
-              <source src="assets/video/orange.mp4" type="video/mp4">
+              <source src="assets/video/video-rek-hero.mp4" type="video/mp4">
             </video>
           </div>
         </div>
@@ -197,7 +197,7 @@
                   class="tahos-video"
                   poster=""
                 >
-                  <source src="assets/video/orange.mp4" type="video/mp4">
+                  <source src="assets/video/video-rek-hero.mp4" type="video/mp4">
                 </video>
 
                 <div class="tahos-screen-gloss"></div>
@@ -808,7 +808,6 @@
     </div>
   </div>
 </section>
-
 
 <script src="assets/js/main.js" defer></script>
 </body>

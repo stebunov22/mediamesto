@@ -23,28 +23,32 @@
       if (panel) panel.setAttribute("aria-hidden", "false");
     }
 
-    function closeMenuInstant() {
+    function closeMenu() {
       menu.classList.remove("is-open");
       document.body.classList.remove("eld-menu-lock");
 
       if (burger) burger.setAttribute("aria-expanded", "false");
       if (panel) panel.setAttribute("aria-hidden", "true");
-      if (backdrop) backdrop.hidden = true;
-      if (panel) panel.hidden = true;
+
+      window.setTimeout(function () {
+        if (!menu.classList.contains("is-open")) {
+          if (backdrop) backdrop.hidden = true;
+          if (panel) panel.hidden = true;
+        }
+      }, 260);
     }
 
-    function closeMenu() {
-      closeMenuInstant();
-    }
-
-    function goToTarget(selector) {
+    function scrollToTarget(selector) {
       var target = document.querySelector(selector);
       if (!target) return;
 
-      var offset = menu ? Math.ceil(menu.getBoundingClientRect().height) + 18 : 18;
-      var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      var menuHeight = menu ? Math.ceil(menu.getBoundingClientRect().height) + 24 : 24;
+      var targetY = target.getBoundingClientRect().top + window.pageYOffset - menuHeight;
 
-      window.scrollTo(0, Math.max(0, top));
+      window.scrollTo({
+        top: Math.max(0, targetY),
+        behavior: "smooth"
+      });
     }
 
     if (panel) {
@@ -91,8 +95,12 @@
         if (href && href.charAt(0) === "#") {
           event.preventDefault();
           event.stopPropagation();
-          closeMenuInstant();
-          goToTarget(href);
+
+          closeMenu();
+
+          window.setTimeout(function () {
+            scrollToTarget(href);
+          }, 80);
         }
       });
     });
@@ -275,7 +283,7 @@
       return;
     }
 
-    var duration = 1200;
+    var duration = 1800;
     var startTime = null;
 
     function step(timestamp) {
@@ -284,7 +292,6 @@
       var eased = 1 - Math.pow(1 - progress, 3);
       var current = Math.floor(target * eased);
       el.textContent = formatNumber(current);
-
       if (progress < 1) {
         requestAnimationFrame(step);
       } else {
@@ -301,7 +308,7 @@
     nums.forEach(animateValue);
   }
 
-  if ('IntersectionObserver' in window && nums.length) {
+  if ('IntersectionObserver' in window) {
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
@@ -315,21 +322,122 @@
     startCounters();
   }
 
-  root.querySelectorAll('video').forEach(function(video) {
-    video.muted = true;
-    video.defaultMuted = true;
-    video.playsInline = true;
-    video.setAttribute('muted', '');
-    video.setAttribute('playsinline', '');
-    video.setAttribute('webkit-playsinline', '');
+  var video = root.querySelector('.tahos-video');
 
-    try {
-      var promise = video.play();
-      if (promise && typeof promise.catch === 'function') {
-        promise.catch(function() {});
+  if (video) {
+    var playAttempts = 0;
+
+    function prepareVideo() {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.autoplay = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.controls = false;
+
+      video.setAttribute('muted', '');
+      video.setAttribute('autoplay', '');
+      video.setAttribute('loop', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.setAttribute('preload', 'metadata');
+      video.removeAttribute('controls');
+    }
+
+    function playVideo() {
+      prepareVideo();
+      playAttempts += 1;
+
+      try {
+        var playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(function() {});
+        }
+      } catch (e) {}
+    }
+
+    function reloadAndPlay() {
+      prepareVideo();
+
+      try {
+        video.load();
+      } catch (e) {}
+
+      setTimeout(playVideo, 80);
+    }
+
+    video.addEventListener('loadedmetadata', playVideo);
+    video.addEventListener('loadeddata', playVideo);
+    video.addEventListener('canplay', playVideo);
+    video.addEventListener('canplaythrough', playVideo);
+
+    video.addEventListener('pause', function() {
+      if (!document.hidden && playAttempts < 20) {
+        setTimeout(playVideo, 150);
       }
-    } catch (e) {}
-  });
+    });
+
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) playVideo();
+    });
+
+    document.addEventListener('touchstart', playVideo, { passive: true });
+    document.addEventListener('pointerdown', playVideo, { passive: true });
+    document.addEventListener('click', playVideo);
+    document.addEventListener('scroll', playVideo, { passive: true });
+
+    reloadAndPlay();
+    setTimeout(playVideo, 100);
+    setTimeout(playVideo, 600);
+    setTimeout(playVideo, 1500);
+    setTimeout(playVideo, 3000);
+  }
+  var mobileVideo = root.querySelector('.tahos-mobile-video');
+
+  if (mobileVideo) {
+    function playMobileVideo() {
+      mobileVideo.muted = true;
+      mobileVideo.defaultMuted = true;
+      mobileVideo.autoplay = true;
+      mobileVideo.loop = true;
+      mobileVideo.playsInline = true;
+      mobileVideo.controls = false;
+
+      mobileVideo.setAttribute('muted', '');
+      mobileVideo.setAttribute('autoplay', '');
+      mobileVideo.setAttribute('loop', '');
+      mobileVideo.setAttribute('playsinline', '');
+      mobileVideo.setAttribute('webkit-playsinline', '');
+      mobileVideo.setAttribute('preload', 'auto');
+      mobileVideo.removeAttribute('controls');
+
+      try {
+        var promise = mobileVideo.play();
+        if (promise && typeof promise.catch === 'function') {
+          promise.catch(function() {});
+        }
+      } catch (e) {}
+    }
+
+    mobileVideo.addEventListener('loadedmetadata', playMobileVideo);
+    mobileVideo.addEventListener('loadeddata', playMobileVideo);
+    mobileVideo.addEventListener('canplay', playMobileVideo);
+    mobileVideo.addEventListener('canplaythrough', playMobileVideo);
+
+    document.addEventListener('touchstart', playMobileVideo, { passive: true });
+    document.addEventListener('pointerdown', playMobileVideo, { passive: true });
+    document.addEventListener('click', playMobileVideo);
+    document.addEventListener('scroll', playMobileVideo, { passive: true });
+
+    document.addEventListener('visibilitychange', function() {
+      if (!document.hidden) playMobileVideo();
+    });
+
+    setTimeout(playMobileVideo, 100);
+    setTimeout(playMobileVideo, 600);
+    setTimeout(playMobileVideo, 1500);
+  }
+
 })();
 
 /* ===== БЛОК 4 ===== */
@@ -1001,7 +1109,10 @@
 
         setTimeout(() => {
           const top = card.getBoundingClientRect().top + window.pageYOffset - 110;
-          window.scrollTo(0, Math.max(0, top));
+          window.scrollTo({
+            top: Math.max(0, top),
+            behavior: "smooth"
+          });
         }, 40);
       });
     }
@@ -1239,7 +1350,7 @@
       const filtered = posts.filter(function (post) {
         return activeFilter === "all" || (post.categories || [post.category]).indexOf(activeFilter) !== -1;
       });
-      var limit = root.classList.contains("eld-rss-blog-section-page") ? filtered.length : 4;
+      var limit = root.dataset.blogLimit === "all" ? filtered.length : 4;
       filtered = filtered.slice(0, limit);
 
       if (!grid) return;
@@ -1285,11 +1396,16 @@
       });
     });
 
+
+    function eldFetchBlogFeed(url) {
+      return fetch(url, { cache: "no-store" }).catch(function () {
+        return fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(url), { cache: "no-store" });
+      });
+    }
+
     showState("Загружаем статьи...");
 
-    fetch(feedUrl, {
-      cache: "no-store"
-    })
+    eldFetchBlogFeed(feedUrl)
       .then(function (response) {
         if (!response.ok) throw new Error("Не удалось загрузить RSS");
         return response.text();
@@ -1557,31 +1673,4 @@
 
   window.addEventListener("wheel", stopAnimation, { passive: true });
   window.addEventListener("touchstart", stopAnimation, { passive: true });
-})();
-
-
-/* ===== ФИЛЬТРЫ СТАТИЧНОЙ СТРАНИЦЫ СТАТЕЙ ===== */
-(function () {
-  var filterBox = document.querySelector("[data-static-article-filters]");
-  if (!filterBox) return;
-
-  var buttons = filterBox.querySelectorAll("[data-filter]");
-  var cards = document.querySelectorAll("[data-article-card]");
-
-  buttons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      var filter = button.getAttribute("data-filter") || "all";
-
-      buttons.forEach(function (item) {
-        item.classList.remove("is-active");
-      });
-
-      button.classList.add("is-active");
-
-      cards.forEach(function (card) {
-        var category = card.getAttribute("data-category") || "";
-        card.style.display = filter === "all" || category === filter ? "" : "none";
-      });
-    });
-  });
 })();
