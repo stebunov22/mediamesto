@@ -23,32 +23,28 @@
       if (panel) panel.setAttribute("aria-hidden", "false");
     }
 
-    function closeMenu() {
+    function closeMenuInstant() {
       menu.classList.remove("is-open");
       document.body.classList.remove("eld-menu-lock");
 
       if (burger) burger.setAttribute("aria-expanded", "false");
       if (panel) panel.setAttribute("aria-hidden", "true");
-
-      window.setTimeout(function () {
-        if (!menu.classList.contains("is-open")) {
-          if (backdrop) backdrop.hidden = true;
-          if (panel) panel.hidden = true;
-        }
-      }, 260);
+      if (backdrop) backdrop.hidden = true;
+      if (panel) panel.hidden = true;
     }
 
-    function scrollToTarget(selector) {
+    function closeMenu() {
+      closeMenuInstant();
+    }
+
+    function goToTarget(selector) {
       var target = document.querySelector(selector);
       if (!target) return;
 
-      var menuHeight = menu ? Math.ceil(menu.getBoundingClientRect().height) + 24 : 24;
-      var targetY = target.getBoundingClientRect().top + window.pageYOffset - menuHeight;
+      var offset = menu ? Math.ceil(menu.getBoundingClientRect().height) + 18 : 18;
+      var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
 
-      window.scrollTo({
-        top: Math.max(0, targetY),
-        behavior: "smooth"
-      });
+      window.scrollTo(0, Math.max(0, top));
     }
 
     if (panel) {
@@ -95,12 +91,8 @@
         if (href && href.charAt(0) === "#") {
           event.preventDefault();
           event.stopPropagation();
-
-          closeMenu();
-
-          window.setTimeout(function () {
-            scrollToTarget(href);
-          }, 80);
+          closeMenuInstant();
+          goToTarget(href);
         }
       });
     });
@@ -1009,10 +1001,7 @@
 
         setTimeout(() => {
           const top = card.getBoundingClientRect().top + window.pageYOffset - 110;
-          window.scrollTo({
-            top: Math.max(0, top),
-            behavior: "smooth"
-          });
+          window.scrollTo(0, Math.max(0, top));
         }, 40);
       });
     }
@@ -1568,4 +1557,31 @@
 
   window.addEventListener("wheel", stopAnimation, { passive: true });
   window.addEventListener("touchstart", stopAnimation, { passive: true });
+})();
+
+
+/* ===== ФИЛЬТРЫ СТАТИЧНОЙ СТРАНИЦЫ СТАТЕЙ ===== */
+(function () {
+  var filterBox = document.querySelector("[data-static-article-filters]");
+  if (!filterBox) return;
+
+  var buttons = filterBox.querySelectorAll("[data-filter]");
+  var cards = document.querySelectorAll("[data-article-card]");
+
+  buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      var filter = button.getAttribute("data-filter") || "all";
+
+      buttons.forEach(function (item) {
+        item.classList.remove("is-active");
+      });
+
+      button.classList.add("is-active");
+
+      cards.forEach(function (card) {
+        var category = card.getAttribute("data-category") || "";
+        card.style.display = filter === "all" || category === filter ? "" : "none";
+      });
+    });
+  });
 })();
