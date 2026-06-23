@@ -1,11 +1,15 @@
 # MediaMesto
 
-Статический сайт для GitHub Pages.
+Рабочая структура для GitHub Pages.
+
+## Что загружать в репозиторий
+
+Загружайте содержимое папки `mediamesto_working` в корень репозитория `mediamesto`.
 
 ## Структура
 
 ```text
-mediamesto/
+mediamesto_working/
 ├── index.html
 ├── assets/
 │   ├── css/main.css
@@ -15,6 +19,7 @@ mediamesto/
 │   │   ├── cases/
 │   │   └── articles/
 │   └── video/
+│       └── video-rek-hero.mp4
 ├── pages/
 │   ├── cases/
 │   │   ├── index.html
@@ -32,10 +37,14 @@ mediamesto/
 │       ├── reklama-u-shlagbauma/
 │       ├── chto-pokazat-v-rolike/
 │       └── stoimost-razmeshcheniya/
+├── tilda/
+│   └── iframe-code.txt
 └── .nojekyll
 ```
 
-## Как публиковать
+## GitHub Pages
 
-Загружайте содержимое этой папки в корень репозитория `mediamesto`.
-В GitHub Pages выбирайте: `Deploy from a branch`, ветка `main`, папка `/root`.
+Settings → Pages → Deploy from a branch → main → /root → Save.
+
+Ссылка:
+https://stebunov22.github.io/mediamesto/

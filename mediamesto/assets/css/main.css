@@ -4660,6 +4660,15 @@ html {
 }
 
 
+/* ===== МОБИЛЬНОЕ МЕНЮ: УБРАТЬ СТРЕЛКИ У КНОПОК ===== */
+@media (max-width: 640px) {
+  .eld-mobile-menu-links a::after {
+    content: none;
+    display: none;
+  }
+}
+
+
 /* ===== ВНУТРЕННИЕ СТРАНИЦЫ GITHUB ===== */
 .mm-page {
   min-height: 100vh;

@@ -261,7 +261,7 @@
 
 
 /* ОБЪЕДИНЕННЫЕ СКРИПТЫ ЛЕНДИНГА / TILDA JS */
-/* Вставлять в JS. Без тегов . */
+/* Вставлять в JS. Без тегов <script>. */
 
 /* ===== БЛОК 1 ===== */
 (function() {
@@ -1440,6 +1440,8 @@
   var nameError = form.querySelector("[data-design-name-error]");
   var phoneError = form.querySelector("[data-design-phone-error]");
   var linkError = form.querySelector("[data-design-link-error]");
+  var designPolicyInput = form.querySelector("[data-design-policy]");
+  var designPolicyError = form.querySelector("[data-design-policy-error]");
 
   function validateName(value) {
     var clean = String(value || "").trim();
