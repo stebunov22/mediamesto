@@ -283,7 +283,7 @@
       return;
     }
 
-    var duration = 1800;
+    var duration = 1200;
     var startTime = null;
 
     function step(timestamp) {
@@ -292,6 +292,7 @@
       var eased = 1 - Math.pow(1 - progress, 3);
       var current = Math.floor(target * eased);
       el.textContent = formatNumber(current);
+
       if (progress < 1) {
         requestAnimationFrame(step);
       } else {
@@ -308,7 +309,7 @@
     nums.forEach(animateValue);
   }
 
-  if ('IntersectionObserver' in window) {
+  if ('IntersectionObserver' in window && nums.length) {
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
@@ -322,122 +323,21 @@
     startCounters();
   }
 
-  var video = root.querySelector('.tahos-video');
+  root.querySelectorAll('video').forEach(function(video) {
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
 
-  if (video) {
-    var playAttempts = 0;
-
-    function prepareVideo() {
-      video.muted = true;
-      video.defaultMuted = true;
-      video.autoplay = true;
-      video.loop = true;
-      video.playsInline = true;
-      video.controls = false;
-
-      video.setAttribute('muted', '');
-      video.setAttribute('autoplay', '');
-      video.setAttribute('loop', '');
-      video.setAttribute('playsinline', '');
-      video.setAttribute('webkit-playsinline', '');
-      video.setAttribute('preload', 'metadata');
-      video.removeAttribute('controls');
-    }
-
-    function playVideo() {
-      prepareVideo();
-      playAttempts += 1;
-
-      try {
-        var playPromise = video.play();
-        if (playPromise && typeof playPromise.catch === 'function') {
-          playPromise.catch(function() {});
-        }
-      } catch (e) {}
-    }
-
-    function reloadAndPlay() {
-      prepareVideo();
-
-      try {
-        video.load();
-      } catch (e) {}
-
-      setTimeout(playVideo, 80);
-    }
-
-    video.addEventListener('loadedmetadata', playVideo);
-    video.addEventListener('loadeddata', playVideo);
-    video.addEventListener('canplay', playVideo);
-    video.addEventListener('canplaythrough', playVideo);
-
-    video.addEventListener('pause', function() {
-      if (!document.hidden && playAttempts < 20) {
-        setTimeout(playVideo, 150);
+    try {
+      var promise = video.play();
+      if (promise && typeof promise.catch === 'function') {
+        promise.catch(function() {});
       }
-    });
-
-    document.addEventListener('visibilitychange', function() {
-      if (!document.hidden) playVideo();
-    });
-
-    document.addEventListener('touchstart', playVideo, { passive: true });
-    document.addEventListener('pointerdown', playVideo, { passive: true });
-    document.addEventListener('click', playVideo);
-    document.addEventListener('scroll', playVideo, { passive: true });
-
-    reloadAndPlay();
-    setTimeout(playVideo, 100);
-    setTimeout(playVideo, 600);
-    setTimeout(playVideo, 1500);
-    setTimeout(playVideo, 3000);
-  }
-  var mobileVideo = root.querySelector('.tahos-mobile-video');
-
-  if (mobileVideo) {
-    function playMobileVideo() {
-      mobileVideo.muted = true;
-      mobileVideo.defaultMuted = true;
-      mobileVideo.autoplay = true;
-      mobileVideo.loop = true;
-      mobileVideo.playsInline = true;
-      mobileVideo.controls = false;
-
-      mobileVideo.setAttribute('muted', '');
-      mobileVideo.setAttribute('autoplay', '');
-      mobileVideo.setAttribute('loop', '');
-      mobileVideo.setAttribute('playsinline', '');
-      mobileVideo.setAttribute('webkit-playsinline', '');
-      mobileVideo.setAttribute('preload', 'auto');
-      mobileVideo.removeAttribute('controls');
-
-      try {
-        var promise = mobileVideo.play();
-        if (promise && typeof promise.catch === 'function') {
-          promise.catch(function() {});
-        }
-      } catch (e) {}
-    }
-
-    mobileVideo.addEventListener('loadedmetadata', playMobileVideo);
-    mobileVideo.addEventListener('loadeddata', playMobileVideo);
-    mobileVideo.addEventListener('canplay', playMobileVideo);
-    mobileVideo.addEventListener('canplaythrough', playMobileVideo);
-
-    document.addEventListener('touchstart', playMobileVideo, { passive: true });
-    document.addEventListener('pointerdown', playMobileVideo, { passive: true });
-    document.addEventListener('click', playMobileVideo);
-    document.addEventListener('scroll', playMobileVideo, { passive: true });
-
-    document.addEventListener('visibilitychange', function() {
-      if (!document.hidden) playMobileVideo();
-    });
-
-    setTimeout(playMobileVideo, 100);
-    setTimeout(playMobileVideo, 600);
-    setTimeout(playMobileVideo, 1500);
-  }
-
+    } catch (e) {}
+  });
 })();
 
 /* ===== БЛОК 4 ===== */
@@ -1349,7 +1249,9 @@
     function render() {
       const filtered = posts.filter(function (post) {
         return activeFilter === "all" || (post.categories || [post.category]).indexOf(activeFilter) !== -1;
-      }).slice(0, 4);
+      });
+      var limit = root.classList.contains("eld-rss-blog-section-page") ? filtered.length : 4;
+      filtered = filtered.slice(0, limit);
 
       if (!grid) return;
 
