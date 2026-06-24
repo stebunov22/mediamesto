@@ -4838,14 +4838,35 @@ html {
   }
 }
 
-/* ===== ЛОГОТИП В МЕНЮ SVG ===== */
+/* ===== ЛОГОТИП В МЕНЮ БЕЗ КРУГА И ОБРЕЗКИ ===== */
 .eld-site-logo-mark {
-  overflow: hidden;
+  width: auto !important;
+  height: 42px !important;
+  min-width: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  color: inherit !important;
 }
 
 .eld-site-logo-mark img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  display: block !important;
+  width: auto !important;
+  height: 42px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 640px) {
+  .eld-site-logo-mark {
+    width: auto !important;
+    height: 36px !important;
+  }
+
+  .eld-site-logo-mark img {
+    width: auto !important;
+    height: 36px !important;
+  }
 }
