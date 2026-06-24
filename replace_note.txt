@@ -1,0 +1,10 @@
+Заменить только эти файлы:
+- index.html
+- assets/css/main.css
+
+Логотип подключён так:
+assets/media/logo/znak/znak-orange-black.svg
+
+Важно:
+сам файл логотипа должен лежать здесь:
+assets/media/logo/znak/znak-orange-black.svg
