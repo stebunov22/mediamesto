@@ -35,20 +35,21 @@
           if (backdrop) backdrop.hidden = true;
           if (panel) panel.hidden = true;
         }
-      }, 260);
+      }, 150);
     }
 
     function scrollToTarget(selector) {
+      if (typeof window.eldSmoothScrollToBlock === "function") {
+        window.eldSmoothScrollToBlock(null, selector);
+        return;
+      }
+
       var target = document.querySelector(selector);
       if (!target) return;
 
-      var menuHeight = menu ? Math.ceil(menu.getBoundingClientRect().height) + 24 : 24;
+      var menuHeight = menu ? Math.ceil(menu.getBoundingClientRect().height) + 18 : 18;
       var targetY = target.getBoundingClientRect().top + window.pageYOffset - menuHeight;
-
-      window.scrollTo({
-        top: Math.max(0, targetY),
-        behavior: "smooth"
-      });
+      window.scrollTo(0, Math.max(0, targetY));
     }
 
     if (panel) {
@@ -100,7 +101,7 @@
 
           window.setTimeout(function () {
             scrollToTarget(href);
-          }, 80);
+          }, 30);
         }
       });
     });
@@ -1548,10 +1549,8 @@
     return menu ? Math.ceil(menu.getBoundingClientRect().height) + 28 : 24;
   }
 
-  function easeInOutCubic(t) {
-    return t < 0.5
-      ? 4 * t * t * t
-      : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
   }
 
   function stopAnimation() {
@@ -1582,7 +1581,7 @@
       if (!startTime) startTime = timestamp;
 
       var progress = Math.min((timestamp - startTime) / duration, 1);
-      var eased = easeInOutCubic(progress);
+      var eased = easeOutCubic(progress);
 
       window.scrollTo(0, startY + distance * eased);
 
@@ -1608,7 +1607,7 @@
     if (!target) return false;
 
     var targetY = target.getBoundingClientRect().top + window.pageYOffset - getMenuOffset();
-    animateScrollTo(targetY, 1400);
+    animateScrollTo(targetY, 420);
 
     return false;
   };
@@ -1654,10 +1653,22 @@
   }
 
   function initMenuActive() {
+    var ticking = false;
+
+    function requestActiveUpdate() {
+      if (ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(function () {
+        ticking = false;
+        setActiveByScroll();
+      });
+    }
+
     setActiveByScroll();
-    window.addEventListener("scroll", setActiveByScroll, { passive: true });
-    window.addEventListener("resize", setActiveByScroll);
-    window.addEventListener("load", setActiveByScroll);
+    window.addEventListener("scroll", requestActiveUpdate, { passive: true });
+    window.addEventListener("resize", requestActiveUpdate);
+    window.addEventListener("load", requestActiveUpdate);
   }
 
   if (document.readyState === "loading") {

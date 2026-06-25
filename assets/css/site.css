@@ -1336,14 +1336,15 @@
   min-width: 0;
   padding: 14px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.055);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(52, 168, 83, 0.13);
+  border: 1px solid rgba(126, 226, 160, 0.28);
+  box-shadow: 0 0 18px rgba(52, 168, 83, 0.08);
 }
 
 .eld-case-result-item span {
   display: block;
   margin-bottom: 8px;
-  color: rgba(255, 255, 255, 0.58);
+  color: rgba(255, 255, 255, 0.76);
   font-size: 12px;
   line-height: 1;
   font-weight: 800;
@@ -1351,7 +1352,7 @@
 
 .eld-case-result-item strong {
   display: block;
-  color: #ffffff;
+  color: #7ee2a0;
   font-size: 34px;
   line-height: 0.95;
   font-weight: 900;
@@ -1359,14 +1360,14 @@
 }
 
 .eld-case-period {
-  margin-top: 20px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 18px;
+  padding-top: 0;
+  border-top: 0;
 }
 
 .eld-case-period strong {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 0;
   color: #ffad5c;
   font-size: 17px;
   line-height: 1.2;
@@ -1375,9 +1376,7 @@
 }
 
 .eld-case-period-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
+  display: none;
 }
 
 .eld-case-period-options em {
@@ -1512,12 +1511,12 @@
   }
 
   .eld-case-period {
-    margin-top: 14px;
-    padding-top: 14px;
+    margin-top: 12px;
+    padding-top: 0;
   }
 
   .eld-case-period strong {
-    margin-bottom: 8px;
+    margin-bottom: 0;
     font-size: 13px;
   }
 
@@ -3855,7 +3854,7 @@
 
 /* ===== ЗАПАСНОЙ ПЛАВНЫЙ СКРОЛЛ ДЛЯ ЯКОРЕЙ ===== */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 
@@ -4259,11 +4258,10 @@ html {
   line-height: 1;
   font-weight: 800;
   white-space: nowrap;
-  transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
 }
 
 .eld-site-nav a:hover {
-  transform: translateY(-1px);
   background: rgba(255, 255, 255, 0.075) !important;
   border-color: rgba(255, 255, 255, 0.2) !important;
   color: #ffffff !important;
@@ -4302,7 +4300,7 @@ html {
   line-height: 1;
   font-weight: 900;
   white-space: nowrap;
-  transition: background 0.22s ease, color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+  transition: background 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
 }
 
 .eld-site-social {
@@ -4336,7 +4334,7 @@ html {
 .eld-site-social:hover,
 .eld-site-phone:hover,
 .eld-site-order:hover {
-  transform: translateY(-1px);
+  filter: brightness(1.04);
 }
 
 .eld-lpr-section {
@@ -4578,7 +4576,7 @@ html {
     display: block;
     border-radius: 999px;
     background: #ffffff;
-    transition: transform 0.22s ease, opacity 0.22s ease;
+    transition: transform 0.14s ease, opacity 0.14s ease;
   }
 
   .eld-site-menu.is-open .eld-mobile-burger span:nth-child(1) {
@@ -4601,7 +4599,7 @@ html {
     opacity: 0;
     visibility: hidden;
     background: rgba(0, 0, 0, 0.46);
-    transition: opacity 0.22s ease, visibility 0.22s ease;
+    transition: opacity 0.14s ease, visibility 0.14s ease;
   }
 
   .eld-mobile-menu-panel {
@@ -4623,7 +4621,7 @@ html {
     border-left: 1px solid rgba(255, 255, 255, 0.13);
     box-shadow: -24px 0 70px rgba(0, 0, 0, 0.48);
     transform: translateX(100%);
-    transition: transform 0.24s ease;
+    transition: transform 0.16s ease;
     overflow-y: auto;
   }
 
@@ -4809,4 +4807,31 @@ html {
     width: 100%;
     min-height: 44px;
   }
+}
+
+
+/* ===== БЫСТРОЕ МЕНЮ И СТАБИЛЬНЫЙ СКРОЛЛ ===== */
+html {
+  scroll-behavior: auto !important;
+}
+
+.eld-site-nav a,
+.eld-site-social,
+.eld-site-phone,
+.eld-site-order,
+.eld-mobile-burger span,
+.eld-mobile-menu-backdrop,
+.eld-mobile-menu-panel {
+  transition-duration: 0.14s !important;
+}
+
+.eld-site-nav a:hover,
+.eld-site-social:hover,
+.eld-site-phone:hover,
+.eld-site-order:hover {
+  transform: none !important;
+}
+
+.eld-case-period-options {
+  display: none !important;
 }

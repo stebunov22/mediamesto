@@ -1,46 +1,40 @@
-# Mediamesto / Tilda + GitHub
+# MEDIAMESTO / GitHub files for Tilda
 
-Tilda остаётся основной страницей. GitHub хранит только CSS, JS и резервные HTML-файлы страниц.
+Tilda остаётся основной страницей. GitHub хранит только кодовые файлы.
 
-GitHub Pages:
+## Структура
 
-```text
-https://stebunov22.github.io/mediamesto/
+```
+assets/css/site.css
+assets/js/site.js
+pages/main/body.html
+pages/blog/.gitkeep
+pages/cases/.gitkeep
+index.html
+README.md
 ```
 
-## Что лежит в репозитории
+Папка с материалами не добавляется: логотипы, фото и видео обновляются вручную.
 
-```text
-index.html                  # техническая страница репозитория
-assets/css/site.css          # стили главной страницы
-assets/js/site.js            # скрипты главной страницы
-pages/main/body.html         # резервная копия HTML тела главной страницы
-pages/blog/                  # заготовка под страницу блога
-pages/cases/                 # заготовка под страницу кейсов
-```
+## Подключение в Tilda
 
-Папка с материалами не добавлена. Материалы обновляются вручную отдельно.
-
-## Подключение к Tilda
-
-CSS:
+CSS в HEAD:
 
 ```html
-<link rel="stylesheet" href="https://stebunov22.github.io/mediamesto/assets/css/site.css?v=20260625-4">
+<link rel="stylesheet" href="https://stebunov22.github.io/mediamesto/assets/css/site.css?v=20260625-5">
 ```
 
-JS:
+JS перед `</body>`:
 
 ```html
-<script src="https://stebunov22.github.io/mediamesto/assets/js/site.js?v=20260625-4"></script>
+<script src="https://stebunov22.github.io/mediamesto/assets/js/site.js?v=20260625-5"></script>
 ```
 
-## Важные ссылки в коде
+## Что изменено в версии 20260625-5
 
-- Блок кейсов, кнопка «Смотреть все»: `https://mediamesto.ru/cases`
-- Блог, кнопка «Смотреть все»: `https://mediamesto.ru/blog`
-- Политика конфиденциальности: `http://mediamesto.ru/privacy-policy`
-
-## Изменение версии
-
-При правках CSS/JS меняйте параметр `v=`, например `20260625-4` → `20260625-5`. Это сбрасывает кеш браузера.
+- Ускорен якорный скролл меню.
+- Убрана тяжёлая/медленная анимация кнопок меню.
+- В карточках кейсов оставлен один срок размещения на карточку.
+- Оба результата в кейсах указаны в процентах.
+- Плашки результатов сделаны зелёными.
+- Разделительная полоса после результатов убрана.
