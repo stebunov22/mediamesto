@@ -126,9 +126,20 @@
   }
 })();
 
-/* ===== ОТПРАВКА КАСТОМНЫХ ФОРМ В СКРЫТУЮ ФОРМУ TILDA ===== */
+/* ===== ОТПРАВКА КАСТОМНЫХ ФОРМ В СКРЫТУЮ ФОРМУ TILDA / ЖЁСТКАЯ ВЕРСИЯ ===== */
 (function () {
   var hiddenFormRecId = "rec2417121671";
+
+  var fieldAliases = {
+    name: ["name", "Name", "Имя", "fio", "ФИО"],
+    phone: ["phone", "Phone", "Телефон", "tel", "Телефон клиента"],
+    comment: ["comment", "Comment", "Комментарий", "comments"],
+    disk_link: ["disk_link", "disk", "link", "Ссылка на диск", "materials", "Материалы"],
+    form_type: ["form_type", "form", "type", "Тип формы"],
+    summary: ["summary", "answers_summary", "Итог заявки", "Заявка"],
+    page_url: ["page_url", "page", "url", "Страница"],
+    policy_accept: ["policy_accept", "policy", "Согласие"]
+  };
 
   function getHiddenTildaForm() {
     var rec = document.getElementById(hiddenFormRecId);
@@ -136,37 +147,86 @@
     return rec.querySelector("form");
   }
 
-  function getField(form, name) {
-    if (!form || !name) return null;
+  function getFields(form) {
+    if (!form) return [];
+    return Array.prototype.slice.call(form.querySelectorAll("input, textarea, select"));
+  }
 
-    var fields = form.querySelectorAll("input, textarea, select");
+  function findField(form, names) {
+    var fields = getFields(form);
+    var cleanNames = (names || []).map(function (name) { return String(name).toLowerCase(); });
+
     for (var i = 0; i < fields.length; i += 1) {
-      if (fields[i].name === name) return fields[i];
+      var field = fields[i];
+      var variants = [
+        field.name,
+        field.getAttribute("data-tilda-name"),
+        field.getAttribute("data-name"),
+        field.getAttribute("placeholder"),
+        field.getAttribute("aria-label")
+      ].filter(Boolean).map(function (value) { return String(value).toLowerCase(); });
+
+      for (var j = 0; j < cleanNames.length; j += 1) {
+        if (variants.indexOf(cleanNames[j]) !== -1) return field;
+      }
     }
 
     return null;
   }
 
-  function ensureHiddenField(form, name) {
-    var field = getField(form, name);
-
+  function ensureHiddenField(form, primaryName) {
+    var field = findField(form, [primaryName]);
     if (!field) {
       field = document.createElement("input");
       field.type = "hidden";
-      field.name = name;
+      field.name = primaryName;
+      field.setAttribute("data-generated-by-custom-form", "true");
       form.appendChild(field);
     }
-
     return field;
   }
 
-  function setFieldValue(form, name, value) {
-    var field = ensureHiddenField(form, name);
+  function unlockHiddenForm(form) {
+    if (!form) return;
+
+    form.noValidate = true;
+    form.removeAttribute("data-error-popup");
+
+    getFields(form).forEach(function (field) {
+      field.disabled = false;
+      field.removeAttribute("required");
+      field.removeAttribute("aria-required");
+      field.removeAttribute("data-tilda-req");
+      field.removeAttribute("data-tilda-rule");
+      field.removeAttribute("data-tilda-mask");
+      field.classList.remove("js-tilda-rule");
+      field.classList.remove("t-input_error");
+    });
+
+    form.querySelectorAll(".t-form__errorbox-wrapper, .js-errorbox-all, .t-input-error").forEach(function (errorBox) {
+      errorBox.style.display = "none";
+      errorBox.textContent = "";
+    });
+
+    form.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
+      checkbox.checked = true;
+      if (!checkbox.value) checkbox.value = "Да";
+      try {
+        checkbox.dispatchEvent(new Event("change", { bubbles: true }));
+      } catch (e) {}
+    });
+  }
+
+  function setFieldValue(form, key, value) {
+    var aliases = fieldAliases[key] || [key];
+    var field = findField(form, aliases) || ensureHiddenField(form, key);
     if (!field) return;
+
+    field.disabled = false;
 
     if (field.type === "checkbox" || field.type === "radio") {
       field.checked = !!value && value !== "Нет" && value !== "false";
-      field.value = String(value || "");
+      if (!field.value) field.value = String(value || "Да");
     } else {
       field.value = String(value || "");
     }
@@ -174,34 +234,50 @@
     try {
       field.dispatchEvent(new Event("input", { bubbles: true }));
       field.dispatchEvent(new Event("change", { bubbles: true }));
+      field.dispatchEvent(new Event("blur", { bubbles: true }));
     } catch (e) {}
   }
 
-  function submitTildaForm(form) {
-    var submitButton = form.querySelector('button[type="submit"], input[type="submit"], .t-submit');
+  function clickTildaSubmit(form) {
+    var submitButton = form.querySelector(".t-submit, button[type='submit'], input[type='submit']");
+
+    unlockHiddenForm(form);
 
     if (submitButton) {
-      submitButton.click();
-      return;
+      try {
+        submitButton.disabled = false;
+        submitButton.removeAttribute("disabled");
+        submitButton.click();
+        return true;
+      } catch (e) {}
+    }
+
+    if (typeof form.requestSubmit === "function") {
+      try {
+        form.requestSubmit();
+        return true;
+      } catch (e) {}
     }
 
     try {
       form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
-    } catch (e) {
-      if (typeof form.submit === "function") form.submit();
-    }
+      return true;
+    } catch (e) {}
+
+    return false;
   }
 
   window.eldSubmitToTildaHiddenForm = function (payload) {
     var form = getHiddenTildaForm();
 
     if (!form) {
-      console.warn("[mediamesto] Скрытая Tilda-форма #" + hiddenFormRecId + " не найдена");
+      console.warn("[mediamesto] Скрытая Tilda-форма #" + hiddenFormRecId + " не найдена на странице");
       return false;
     }
 
     var data = payload || {};
 
+    unlockHiddenForm(form);
     setFieldValue(form, "name", data.name || "");
     setFieldValue(form, "phone", data.phone || "");
     setFieldValue(form, "comment", data.comment || "");
@@ -211,8 +287,26 @@
     setFieldValue(form, "page_url", data.page_url || window.location.href);
     setFieldValue(form, "policy_accept", data.policy_accept || "Да");
 
-    submitTildaForm(form);
-    return true;
+    console.log("[mediamesto] Отправка в скрытую Tilda-форму", data);
+    return clickTildaSubmit(form);
+  };
+
+  window.eldShowCustomFormStatus = function (form, isSuccess, title, text) {
+    if (!form) return;
+
+    var box = form.querySelector("[data-custom-form-status]");
+    if (!box) {
+      box = document.createElement("div");
+      box.className = "eld-custom-form-success";
+      box.setAttribute("data-custom-form-status", "");
+      form.appendChild(box);
+    }
+
+    box.classList.toggle("is-error", !isSuccess);
+    box.innerHTML = "<strong>" + title + "</strong><span>" + text + "</span>";
+    form.classList.add("is-accepted");
+
+    try { form.reset(); } catch (e) {}
   };
 })();
 
@@ -222,14 +316,17 @@
   var root = document.querySelector(".eld-lpr-section");
   if (!root) return;
 
-  function setActiveRadio(group) {
-    if (!group) return;
-    var labels = group.querySelectorAll("label");
-    labels.forEach(function (label) {
-      var input = label.querySelector('input[type="radio"]');
-      label.classList.toggle("is-active", !!input && input.checked);
-    });
-  }
+  var form = root.querySelector("[data-lpr-form]");
+  if (!form) return;
+
+  var nameInput = form.querySelector("[data-lpr-name]");
+  var phoneInput = form.querySelector("[data-lpr-phone]");
+  var policyInput = form.querySelector("[data-lpr-policy]");
+  var commentInput = form.querySelector("[data-lpr-comment]");
+  var summaryInput = form.querySelector("[data-lpr-summary]");
+  var nameError = form.querySelector("[data-lpr-name-error]");
+  var phoneError = form.querySelector("[data-lpr-phone-error]");
+  var policyError = form.querySelector("[data-lpr-policy-error]");
 
   function validateName(value) {
     var clean = String(value || "").trim();
@@ -249,56 +346,16 @@
 
   function setFieldError(input, errorEl, message) {
     if (!input || !errorEl) return;
-    if (message) {
-      input.classList.add("is-error");
-      errorEl.textContent = message;
-    } else {
-      input.classList.remove("is-error");
-      errorEl.textContent = "";
-    }
+    input.classList.toggle("is-error", !!message);
+    errorEl.textContent = message || "";
   }
-
-  root.querySelectorAll("[data-lpr-duration], [data-lpr-period]").forEach(function (group) {
-    setActiveRadio(group);
-
-    group.addEventListener("change", function () {
-      setActiveRadio(group);
-      updateSummary();
-    });
-
-    group.querySelectorAll("label").forEach(function (label) {
-      label.addEventListener("click", function () {
-        setTimeout(function () {
-          setActiveRadio(group);
-          updateSummary();
-        }, 0);
-      });
-    });
-  });
 
   function updateSummary() {
-    var form = root.querySelector("[data-lpr-form]");
-    if (!form) return;
-
-    var commentInput = form.querySelector("[data-lpr-comment]");
-    var summary = form.querySelector("[data-lpr-summary]");
     var comment = commentInput ? String(commentInput.value || "").trim() : "";
-
-    if (summary) {
-      summary.value = "Заявка на консультацию" + (comment ? " / Комментарий: " + comment : "");
+    if (summaryInput) {
+      summaryInput.value = "Заявка на консультацию" + (comment ? " / Комментарий: " + comment : "");
     }
   }
-
-  var form = root.querySelector("[data-lpr-form]");
-  if (!form) return;
-
-  var nameInput = form.querySelector("[data-lpr-name]");
-  var phoneInput = form.querySelector("[data-lpr-phone]");
-  var policyInput = form.querySelector("[data-lpr-policy]");
-  var commentInput = form.querySelector("[data-lpr-comment]");
-  var nameError = form.querySelector("[data-lpr-name-error]");
-  var phoneError = form.querySelector("[data-lpr-phone-error]");
-  var policyError = form.querySelector("[data-lpr-policy-error]");
 
   if (nameInput) {
     nameInput.addEventListener("input", function () {
@@ -339,28 +396,32 @@
 
     if (nameMessage || phoneMessage || policyMessage) return;
 
-    var commentText = commentInput ? String(commentInput.value || "").trim() : "";
-    var summaryInput = form.querySelector("[data-lpr-summary]");
-    var summaryText = summaryInput && summaryInput.value ? summaryInput.value : "Заявка на консультацию";
+    var button = form.querySelector('button[type="submit"]');
+    if (button) {
+      button.disabled = true;
+      button.textContent = "Отправляем...";
+    }
 
-    var submitted = true;
+    var submitted = false;
     if (typeof window.eldSubmitToTildaHiddenForm === "function") {
       submitted = window.eldSubmitToTildaHiddenForm({
         form_type: "Получить консультацию",
         name: nameInput ? String(nameInput.value || "").trim() : "",
         phone: phoneInput ? String(phoneInput.value || "").trim() : "",
-        comment: commentText,
+        comment: commentInput ? String(commentInput.value || "").trim() : "",
         disk_link: "",
-        summary: summaryText,
+        summary: summaryInput && summaryInput.value ? summaryInput.value : "Заявка на консультацию",
         page_url: window.location.href,
-        policy_accept: policyInput && policyInput.checked ? "Да" : "Нет"
+        policy_accept: "Да"
       });
     }
 
-    var button = form.querySelector('button[type="submit"]');
-    if (button) {
-      button.textContent = submitted ? "Заявка отправлена" : "Форма не найдена";
-      button.disabled = submitted;
+    if (typeof window.eldShowCustomFormStatus === "function") {
+      if (submitted) {
+        window.eldShowCustomFormStatus(form, true, "Ваша заявка принята", "Мы свяжемся с вами в ближайшее время.");
+      } else {
+        window.eldShowCustomFormStatus(form, false, "Заявка не отправлена", "Проверьте, что скрытая Tilda-форма #rec2417121671 есть на странице.");
+      }
     }
   });
 
@@ -1567,22 +1628,10 @@
     return "";
   }
 
-  function validateLink(value) {
-    var clean = String(value || "").trim();
-    if (!clean) return "Добавьте ссылку на диск";
-    if (!/^https?:\/\/.+/i.test(clean)) return "Ссылка должна начинаться с http или https";
-    return "";
-  }
-
   function setFieldError(input, errorEl, message) {
     if (!input || !errorEl) return;
-    if (message) {
-      input.classList.add("is-error");
-      errorEl.textContent = message;
-    } else {
-      input.classList.remove("is-error");
-      errorEl.textContent = "";
-    }
+    input.classList.toggle("is-error", !!message);
+    errorEl.textContent = message || "";
   }
 
   if (nameInput) {
@@ -1602,7 +1651,7 @@
 
   if (linkInput) {
     linkInput.addEventListener("input", function () {
-      setFieldError(linkInput, linkError, validateLink(linkInput.value));
+      setFieldError(linkInput, linkError, "");
     });
   }
 
@@ -1619,18 +1668,24 @@
 
     var nameMessage = validateName(nameInput ? nameInput.value : "");
     var phoneMessage = validatePhone(phoneInput ? phoneInput.value : "");
-    var linkMessage = validateLink(linkInput ? linkInput.value : "");
     var policyMessage = designPolicyInput && designPolicyInput.checked ? "" : "Примите политику обработки персональных данных";
 
     setFieldError(nameInput, nameError, nameMessage);
     setFieldError(phoneInput, phoneError, phoneMessage);
-    setFieldError(linkInput, linkError, linkMessage);
+    setFieldError(linkInput, linkError, "");
     if (designPolicyError) designPolicyError.textContent = policyMessage;
 
-    if (nameMessage || phoneMessage || linkMessage || policyMessage) return;
+    if (nameMessage || phoneMessage || policyMessage) return;
+
+    var button = form.querySelector('button[type="submit"]');
+    if (button) {
+      button.disabled = true;
+      button.textContent = "Отправляем...";
+    }
 
     var linkText = linkInput ? String(linkInput.value || "").trim() : "";
-    var submitted = true;
+    var submitted = false;
+
     if (typeof window.eldSubmitToTildaHiddenForm === "function") {
       submitted = window.eldSubmitToTildaHiddenForm({
         form_type: "Получить дизайн",
@@ -1640,26 +1695,19 @@
         disk_link: linkText,
         summary: "Заявка на создание дизайна для загородной рекламы" + (linkText ? " / Ссылка на диск: " + linkText : ""),
         page_url: window.location.href,
-        policy_accept: designPolicyInput && designPolicyInput.checked ? "Да" : "Нет"
+        policy_accept: "Да"
       });
     }
 
-    var button = form.querySelector('button[type="submit"]');
-    if (button) {
-      button.textContent = submitted ? "Заявка отправлена" : "Форма не найдена";
-      button.disabled = submitted;
+    if (typeof window.eldShowCustomFormStatus === "function") {
+      if (submitted) {
+        window.eldShowCustomFormStatus(form, true, "Ваша заявка принята", "Мы свяжемся с вами в ближайшее время.");
+      } else {
+        window.eldShowCustomFormStatus(form, false, "Заявка не отправлена", "Проверьте, что скрытая Tilda-форма #rec2417121671 есть на странице.");
+      }
     }
   });
 })();
-
-
-
-
-
-
-
-
-
 
 
 /* ===== МЕНЮ: ПЛАВНЫЙ СКРОЛЛ И АКТИВНАЯ КНОПКА / ЧИСТАЯ ВЕРСИЯ ===== */

@@ -4895,3 +4895,25 @@ html {
 .eld-custom-form-success.is-error strong {
   color: #ff8d74;
 }
+
+
+/* ===== ФИКС ФОРМ 4: СКРЫТАЯ TILDA-ФОРМА ОСТАЁТСЯ В DOM ===== */
+#rec2417121671,
+#rec2417121671 .t-rec,
+#rec2417121671 .t-form,
+#rec2417121671 form {
+  visibility: visible !important;
+}
+
+#rec2417121671 {
+  display: block !important;
+  position: fixed !important;
+  left: -20000px !important;
+  top: -20000px !important;
+  width: 10px !important;
+  height: 10px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -9999 !important;
+}
