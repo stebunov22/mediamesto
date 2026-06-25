@@ -4851,3 +4851,47 @@ html {
   pointer-events: none !important;
   z-index: -1 !important;
 }
+
+
+/* ===== СООБЩЕНИЕ ПОСЛЕ ОТПРАВКИ КАСТОМНЫХ ФОРМ ===== */
+.eld-lpr-form.is-accepted > :not(.eld-custom-form-success),
+.eld-design-launch-form.is-accepted > :not(.eld-custom-form-success) {
+  display: none !important;
+}
+
+.eld-custom-form-success {
+  display: grid;
+  gap: 10px;
+  padding: 26px 22px;
+  border-radius: 22px;
+  background: rgba(126, 226, 160, 0.12);
+  border: 1px solid rgba(126, 226, 160, 0.34);
+  color: #ffffff;
+  text-align: left;
+}
+
+.eld-custom-form-success strong {
+  display: block;
+  color: #7ee2a0;
+  font-size: 26px;
+  line-height: 1.08;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.eld-custom-form-success span {
+  display: block;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 15px;
+  line-height: 1.45;
+  font-weight: 700;
+}
+
+.eld-custom-form-success.is-error {
+  background: rgba(255, 90, 54, 0.12);
+  border-color: rgba(255, 90, 54, 0.34);
+}
+
+.eld-custom-form-success.is-error strong {
+  color: #ff8d74;
+}
