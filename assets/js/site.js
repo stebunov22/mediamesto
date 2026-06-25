@@ -126,9 +126,10 @@
   }
 })();
 
-/* ===== ОТПРАВКА КАСТОМНЫХ ФОРМ В СКРЫТУЮ ФОРМУ TILDA / ЖЁСТКАЯ ВЕРСИЯ ===== */
+/* ===== ОТПРАВКА КАСТОМНЫХ ФОРМ В СКРЫТЫЕ ФОРМЫ TILDA ===== */
 (function () {
-  var hiddenFormRecId = "rec2417121671";
+  var consultationFormRecId = "rec2417121671";
+  var priceFormRecId = "rec2417439761";
 
   var fieldAliases = {
     name: ["name", "Name", "Имя", "fio", "ФИО"],
@@ -136,13 +137,21 @@
     comment: ["comment", "Comment", "Комментарий", "comments"],
     disk_link: ["disk_link", "disk", "link", "Ссылка на диск", "materials", "Материалы"],
     form_type: ["form_type", "form", "type", "Тип формы"],
+    tariff: ["tariff", "Тариф"],
+    duration: ["duration", "Длительность ролика", "Ролик"],
+    period: ["period", "Срок размещения", "Период"],
+    places: ["places", "Места размещения", "Локации"],
+    places_count: ["places_count", "Количество мест"],
+    price: ["price", "Цена", "Стоимость"],
+    discount: ["discount", "Скидка"],
+    air_time: ["air_time", "Часы эфира", "Эфир"],
     summary: ["summary", "answers_summary", "Итог заявки", "Заявка"],
     page_url: ["page_url", "page", "url", "Страница"],
     policy_accept: ["policy_accept", "policy", "Согласие"]
   };
 
-  function getHiddenTildaForm() {
-    var rec = document.getElementById(hiddenFormRecId);
+  function getHiddenTildaForm(recId) {
+    var rec = document.getElementById(recId);
     if (!rec) return null;
     return rec.querySelector("form");
   }
@@ -267,28 +276,36 @@
     return false;
   }
 
-  window.eldSubmitToTildaHiddenForm = function (payload) {
-    var form = getHiddenTildaForm();
+  function submitToTildaRec(recId, payload) {
+    var form = getHiddenTildaForm(recId);
 
     if (!form) {
-      console.warn("[mediamesto] Скрытая Tilda-форма #" + hiddenFormRecId + " не найдена на странице");
+      console.warn("[mediamesto] Скрытая Tilda-форма #" + recId + " не найдена на странице");
       return false;
     }
 
     var data = payload || {};
 
     unlockHiddenForm(form);
-    setFieldValue(form, "name", data.name || "");
-    setFieldValue(form, "phone", data.phone || "");
-    setFieldValue(form, "comment", data.comment || "");
-    setFieldValue(form, "disk_link", data.disk_link || "");
-    setFieldValue(form, "form_type", data.form_type || "");
-    setFieldValue(form, "summary", data.summary || "");
-    setFieldValue(form, "page_url", data.page_url || window.location.href);
-    setFieldValue(form, "policy_accept", data.policy_accept || "Да");
 
-    console.log("[mediamesto] Отправка в скрытую Tilda-форму", data);
+    Object.keys(data).forEach(function (key) {
+      if (key === "old_price") return;
+      setFieldValue(form, key, data[key]);
+    });
+
+    if (!data.page_url) setFieldValue(form, "page_url", window.location.href);
+    if (!data.policy_accept) setFieldValue(form, "policy_accept", "Да");
+
+    console.log("[mediamesto] Отправка в скрытую Tilda-форму #" + recId, data);
     return clickTildaSubmit(form);
+  }
+
+  window.eldSubmitToTildaHiddenForm = function (payload) {
+    return submitToTildaRec(consultationFormRecId, payload);
+  };
+
+  window.eldSubmitToTildaPriceForm = function (payload) {
+    return submitToTildaRec(priceFormRecId, payload);
   };
 
   window.eldShowCustomFormStatus = function (form, isSuccess, title, text) {
@@ -1339,10 +1356,58 @@
 
         if (nameMessage || phoneMessage || policyMessage) return;
 
+        updateCard(card);
+
+        const duration = card.dataset.duration || "5";
+        const activePeriod = card.querySelector("[data-months] button.is-active");
+        const period = activePeriod ? activePeriod.dataset.period : "1";
+        const priceData = tariffPrices[duration][period];
+        const checkedPlaces = card.querySelectorAll("[data-places] input:checked").length;
+        const placesCount = Math.max(checkedPlaces, 1);
+        const placeDiscount = placesCount >= 2 ? 10 : 0;
+        const baseTotal = priceData.newPrice * placesCount;
+        const finalTotal = placeDiscount ? baseTotal * 0.9 : baseTotal;
+        const places = Array.from(card.querySelectorAll("[data-places] input:checked"))
+          .map((input) => input.closest("label").querySelector("span").textContent.trim())
+          .join(", ");
+        const airTime = formatHours(getAirHours(duration, priceData.totalMonths));
+        const discountText = placeDiscount ? "доп. скидка -10%" : "нет";
+        const tariff = card.dataset.tariff || "";
+        const priceText = formatPrice(finalTotal);
+
         const button = form.querySelector('button[type="submit"]');
         if (button) {
-          button.textContent = "Заявка отправлена";
+          button.textContent = "Отправляем...";
           button.disabled = true;
+        }
+
+        const payload = {
+          form_type: "Заявка по тарифу",
+          name: nameInput ? String(nameInput.value || "").trim() : "",
+          phone: phoneInput ? String(phoneInput.value || "").trim() : "",
+          tariff: tariff,
+          duration: duration + " секунд",
+          period: priceData.label,
+          places: places,
+          places_count: String(placesCount),
+          price: priceText,
+          discount: discountText,
+          air_time: airTime,
+          summary: tariff + " / " + priceData.label + " / " + placesCount + " мест(а) / " + places + " / " + priceText + " / " + airTime + " / " + discountText,
+          page_url: window.location.href,
+          policy_accept: "Да"
+        };
+
+        const submitted = typeof window.eldSubmitToTildaPriceForm === "function"
+          ? window.eldSubmitToTildaPriceForm(payload)
+          : false;
+
+        if (typeof window.eldShowCustomFormStatus === "function") {
+          if (submitted) {
+            window.eldShowCustomFormStatus(form, true, "Ваша заявка принята", "Мы свяжемся с вами в ближайшее время.");
+          } else {
+            window.eldShowCustomFormStatus(form, false, "Заявка не отправлена", "Проверьте, что скрытая Tilda-форма #rec2417439761 есть на странице.");
+          }
         }
       });
     }

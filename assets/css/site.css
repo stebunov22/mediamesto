@@ -4838,7 +4838,8 @@ html {
 
 
 /* ===== СКРЫТАЯ TILDA-ФОРМА ДЛЯ ПРИЁМА ЗАЯВОК ===== */
-#rec2417121671 {
+#rec2417121671,
+#rec2417439761 {
   position: fixed !important;
   left: -10000px !important;
   top: -10000px !important;
@@ -4855,7 +4856,8 @@ html {
 
 /* ===== СООБЩЕНИЕ ПОСЛЕ ОТПРАВКИ КАСТОМНЫХ ФОРМ ===== */
 .eld-lpr-form.is-accepted > :not(.eld-custom-form-success),
-.eld-design-launch-form.is-accepted > :not(.eld-custom-form-success) {
+.eld-design-launch-form.is-accepted > :not(.eld-custom-form-success),
+.eld-tcalc-form.is-accepted > :not(.eld-custom-form-success) {
   display: none !important;
 }
 
@@ -4901,11 +4903,16 @@ html {
 #rec2417121671,
 #rec2417121671 .t-rec,
 #rec2417121671 .t-form,
-#rec2417121671 form {
+#rec2417121671 form,
+#rec2417439761,
+#rec2417439761 .t-rec,
+#rec2417439761 .t-form,
+#rec2417439761 form {
   visibility: visible !important;
 }
 
-#rec2417121671 {
+#rec2417121671,
+#rec2417439761 {
   display: block !important;
   position: fixed !important;
   left: -20000px !important;

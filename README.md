@@ -1,13 +1,10 @@
-# Mediamesto / Tilda + GitHub
+# mediamesto GitHub assets
 
-Обновление: forms4-hardfix.
+Обновление: подключены формы тарифов к скрытой Tilda-форме #rec2417439761.
 
-Что важно:
-- папка с материалами не добавлена;
-- CSS: `assets/css/site.css`;
-- JS: `assets/js/site.js`;
-- тело главной: `pages/main/body.html`;
-- Tilda должна подключать файлы с `?v=20260625-forms4-hardfix`.
+Файлы для GitHub Pages:
+- assets/css/site.css
+- assets/js/site.js
+- pages/main/body.html
 
-Скрытая форма Tilda: `#rec2417121671`.
-Она скрывается CSS, но должна оставаться на странице и не должна иметь обязательных полей.
+Папка с материалами не добавлена — материалы обновляются вручную.
