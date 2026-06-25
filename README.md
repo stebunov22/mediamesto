@@ -21,13 +21,13 @@ README.md
 CSS в HEAD:
 
 ```html
-<link rel="stylesheet" href="https://stebunov22.github.io/mediamesto/assets/css/site.css?v=20260625-5">
+<link rel="stylesheet" href="https://stebunov22.github.io/mediamesto/assets/css/site.css?v=20260625-6">
 ```
 
 JS перед `</body>`:
 
 ```html
-<script src="https://stebunov22.github.io/mediamesto/assets/js/site.js?v=20260625-5"></script>
+<script src="https://stebunov22.github.io/mediamesto/assets/js/site.js?v=20260625-6"></script>
 ```
 
 ## Что изменено в версии 20260625-5
@@ -38,3 +38,6 @@ JS перед `</body>`:
 - Оба результата в кейсах указаны в процентах.
 - Плашки результатов сделаны зелёными.
 - Разделительная полоса после результатов убрана.
+
+
+Обновление: кастомные формы "Получить консультацию" и "Получить дизайн" отправляют данные в скрытую Tilda-форму #rec2417121671. Папка с материалами в архив не добавляется.

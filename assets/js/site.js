@@ -126,6 +126,95 @@
   }
 })();
 
+/* ===== ОТПРАВКА КАСТОМНЫХ ФОРМ В СКРЫТУЮ ФОРМУ TILDA ===== */
+(function () {
+  var hiddenFormRecId = "rec2417121671";
+
+  function getHiddenTildaForm() {
+    var rec = document.getElementById(hiddenFormRecId);
+    if (!rec) return null;
+    return rec.querySelector("form");
+  }
+
+  function getField(form, name) {
+    if (!form || !name) return null;
+
+    var fields = form.querySelectorAll("input, textarea, select");
+    for (var i = 0; i < fields.length; i += 1) {
+      if (fields[i].name === name) return fields[i];
+    }
+
+    return null;
+  }
+
+  function ensureHiddenField(form, name) {
+    var field = getField(form, name);
+
+    if (!field) {
+      field = document.createElement("input");
+      field.type = "hidden";
+      field.name = name;
+      form.appendChild(field);
+    }
+
+    return field;
+  }
+
+  function setFieldValue(form, name, value) {
+    var field = ensureHiddenField(form, name);
+    if (!field) return;
+
+    if (field.type === "checkbox" || field.type === "radio") {
+      field.checked = !!value && value !== "Нет" && value !== "false";
+      field.value = String(value || "");
+    } else {
+      field.value = String(value || "");
+    }
+
+    try {
+      field.dispatchEvent(new Event("input", { bubbles: true }));
+      field.dispatchEvent(new Event("change", { bubbles: true }));
+    } catch (e) {}
+  }
+
+  function submitTildaForm(form) {
+    var submitButton = form.querySelector('button[type="submit"], input[type="submit"], .t-submit');
+
+    if (submitButton) {
+      submitButton.click();
+      return;
+    }
+
+    try {
+      form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+    } catch (e) {
+      if (typeof form.submit === "function") form.submit();
+    }
+  }
+
+  window.eldSubmitToTildaHiddenForm = function (payload) {
+    var form = getHiddenTildaForm();
+
+    if (!form) {
+      console.warn("[mediamesto] Скрытая Tilda-форма #" + hiddenFormRecId + " не найдена");
+      return false;
+    }
+
+    var data = payload || {};
+
+    setFieldValue(form, "name", data.name || "");
+    setFieldValue(form, "phone", data.phone || "");
+    setFieldValue(form, "comment", data.comment || "");
+    setFieldValue(form, "disk_link", data.disk_link || "");
+    setFieldValue(form, "form_type", data.form_type || "");
+    setFieldValue(form, "summary", data.summary || "");
+    setFieldValue(form, "page_url", data.page_url || window.location.href);
+    setFieldValue(form, "policy_accept", data.policy_accept || "Да");
+
+    submitTildaForm(form);
+    return true;
+  };
+})();
 
 
 /* ===== НОВЫЙ ВЕРХНИЙ БЛОК / ЛПР + ФОРМА ===== */
@@ -250,10 +339,28 @@
 
     if (nameMessage || phoneMessage || policyMessage) return;
 
+    var commentText = commentInput ? String(commentInput.value || "").trim() : "";
+    var summaryInput = form.querySelector("[data-lpr-summary]");
+    var summaryText = summaryInput && summaryInput.value ? summaryInput.value : "Заявка на консультацию";
+
+    var submitted = true;
+    if (typeof window.eldSubmitToTildaHiddenForm === "function") {
+      submitted = window.eldSubmitToTildaHiddenForm({
+        form_type: "Получить консультацию",
+        name: nameInput ? String(nameInput.value || "").trim() : "",
+        phone: phoneInput ? String(phoneInput.value || "").trim() : "",
+        comment: commentText,
+        disk_link: "",
+        summary: summaryText,
+        page_url: window.location.href,
+        policy_accept: policyInput && policyInput.checked ? "Да" : "Нет"
+      });
+    }
+
     var button = form.querySelector('button[type="submit"]');
     if (button) {
-      button.textContent = "Заявка отправлена";
-      button.disabled = true;
+      button.textContent = submitted ? "Заявка отправлена" : "Форма не найдена";
+      button.disabled = submitted;
     }
   });
 
@@ -1522,10 +1629,25 @@
 
     if (nameMessage || phoneMessage || linkMessage || policyMessage) return;
 
+    var linkText = linkInput ? String(linkInput.value || "").trim() : "";
+    var submitted = true;
+    if (typeof window.eldSubmitToTildaHiddenForm === "function") {
+      submitted = window.eldSubmitToTildaHiddenForm({
+        form_type: "Получить дизайн",
+        name: nameInput ? String(nameInput.value || "").trim() : "",
+        phone: phoneInput ? String(phoneInput.value || "").trim() : "",
+        comment: "",
+        disk_link: linkText,
+        summary: "Заявка на создание дизайна для загородной рекламы" + (linkText ? " / Ссылка на диск: " + linkText : ""),
+        page_url: window.location.href,
+        policy_accept: designPolicyInput && designPolicyInput.checked ? "Да" : "Нет"
+      });
+    }
+
     var button = form.querySelector('button[type="submit"]');
     if (button) {
-      button.textContent = "Заявка отправлена";
-      button.disabled = true;
+      button.textContent = submitted ? "Заявка отправлена" : "Форма не найдена";
+      button.disabled = submitted;
     }
   });
 })();

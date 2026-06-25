@@ -4835,3 +4835,19 @@ html {
 .eld-case-period-options {
   display: none !important;
 }
+
+
+/* ===== СКРЫТАЯ TILDA-ФОРМА ДЛЯ ПРИЁМА ЗАЯВОК ===== */
+#rec2417121671 {
+  position: fixed !important;
+  left: -10000px !important;
+  top: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  max-width: 1px !important;
+  max-height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
