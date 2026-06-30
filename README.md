@@ -1,11 +1,7 @@
 # Mediamesto / Tilda + GitHub
 
-Обновление: contactsjson-v1.
+Версия: 20260701-contact-icons-form-v1
 
-Данные кейсов: `assets/data/cases.json`.
-Данные контактов: `assets/data/contacts.json`.
-
-CSS: `assets/css/site.css?v=20260701-contactsjson-v1`.
-JS: `assets/js/site.js?v=20260701-contactsjson-v1`.
-
+Контакты подтягиваются из `assets/data/contacts.json`.
+Кейсы подтягиваются из `assets/data/cases.json`.
 Папки с материалами в архив не добавлены.

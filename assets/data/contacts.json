@@ -1,25 +1,57 @@
 {
   "phone": "8 (993) 644-69-24",
   "phone_href": "tel:+79936446924",
+  "email": "info@mediamesto.ru",
+  "email_href": "mailto:info@mediamesto.ru",
   "company": "МедиаМесто",
   "since": "2010",
   "inn": "220415877799",
+  "icons": {
+    "telegram": "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/telegram.png?raw=true",
+    "whatsapp": "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/whatsapp.png?raw=true",
+    "max": "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/max.png?raw=true",
+    "vk": "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/vkontakte.png?raw=true",
+    "phone": "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/phone.png?raw=true",
+    "email": "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/email.png?raw=true"
+  },
   "socials": {
     "whatsapp": {
       "label": "WhatsApp",
-      "url": "https://wa.me/79936446924"
+      "url": "https://wa.me/79936446924",
+      "icon": "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/whatsapp.png?raw=true"
     },
     "telegram": {
       "label": "Telegram",
-      "url": "https://t.me/podsvetipro"
+      "url": "https://t.me/podsvetipro",
+      "icon": "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/telegram.png?raw=true"
     },
     "max": {
       "label": "MAX",
-      "url": "#"
+      "url": "#",
+      "icon": "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/max.png?raw=true"
     },
     "vk": {
       "label": "VK",
-      "url": "#"
+      "url": "#",
+      "icon": "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/vkontakte.png?raw=true"
+    }
+  },
+  "pages": {
+    "home": {
+      "label": "Главная",
+      "url": "https://mediamesto.ru"
+    },
+    "blog": {
+      "label": "Блог",
+      "url": "https://mediamesto.ru/blog"
+    },
+    "cases": {
+      "label": "Кейсы",
+      "url": "https://mediamesto.ru/cases"
+    },
+    "privacy": {
+      "label": "Политика конфиденциальности",
+      "url": "http://mediamesto.ru/privacy-policy"
     }
   }
 }

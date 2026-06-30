@@ -1407,22 +1407,23 @@
   }
 
   .eld-case-results-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 6px;
   }
 
   .eld-case-result-item {
-    padding: 10px;
-    border-radius: 14px;
+    padding: 8px 6px;
+    border-radius: 12px;
   }
 
   .eld-case-result-item span {
-    margin-bottom: 6px;
-    font-size: 10px;
+    margin-bottom: 5px;
+    font-size: 9px;
+    white-space: nowrap;
   }
 
   .eld-case-result-item strong {
-    font-size: 26px;
+    font-size: 18px;
   }
 
   .eld-case-period {
@@ -4380,9 +4381,13 @@ html {
 
 .eld-contacts-main {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
-  gap: 28px;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.44fr);
+  gap: 30px;
   align-items: start;
+}
+
+.eld-contacts-info {
+  min-width: 0;
 }
 
 .eld-contacts-title-box h2 {
@@ -4405,18 +4410,25 @@ html {
 
 .eld-contacts-actions {
   display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
+  max-width: 760px;
+  margin-top: 28px;
 }
 
-.eld-contacts-phone,
-.eld-contacts-social {
+.eld-contacts-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 9px;
+  min-width: 0;
   width: 100%;
   min-height: 48px;
-  padding: 13px 18px;
+  padding: 13px 14px;
   border-radius: 999px;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 122, 24, 0.28);
+  color: #ffad5c !important;
   font-size: 14px;
   line-height: 1;
   font-weight: 900;
@@ -4424,21 +4436,186 @@ html {
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
 }
 
-.eld-contacts-phone {
+.eld-contacts-link-main {
   background: linear-gradient(135deg, rgba(255, 122, 24, 1), rgba(255, 191, 87, 0.92));
+  border-color: rgba(255, 191, 87, 0.72);
   color: #111111 !important;
   box-shadow: 0 14px 34px rgba(255, 122, 24, 0.22);
 }
 
-.eld-contacts-social {
-  background: rgba(255, 255, 255, 0.055);
-  border: 1px solid rgba(255, 122, 24, 0.28);
-  color: #ffad5c !important;
+.eld-contacts-link img {
+  display: block;
+  width: 19px;
+  height: 19px;
+  object-fit: contain;
+  flex: 0 0 auto;
 }
 
-.eld-contacts-phone:hover,
-.eld-contacts-social:hover {
+.eld-contacts-link span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eld-contacts-link:hover {
   transform: translateY(-2px);
+}
+
+.eld-contacts-pages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 760px;
+  margin-top: 22px;
+}
+
+.eld-contacts-pages a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 9px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.72) !important;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 900;
+  text-decoration: none !important;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.eld-contacts-pages a:hover {
+  color: #ffad5c !important;
+  border-color: rgba(255, 122, 24, 0.32);
+  background: rgba(255, 122, 24, 0.1);
+}
+
+.eld-contacts-form-box {
+  min-width: 0;
+}
+
+.eld-contacts-form {
+  width: 100%;
+  padding: 22px;
+  border-radius: 26px;
+  background: linear-gradient(180deg, rgba(17, 17, 17, 0.96), rgba(12, 12, 12, 0.94));
+  border: 1px solid rgba(255, 122, 24, 0.48);
+  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(255, 122, 24, 0.12);
+}
+
+.eld-contacts-form h3 {
+  margin: 0 0 9px;
+  color: #ffffff;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+}
+
+.eld-contacts-form > p {
+  margin: 0 0 18px;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 14px;
+  line-height: 1.42;
+  font-weight: 600;
+}
+
+.eld-contacts-field {
+  display: grid;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.eld-contacts-field input {
+  width: 100%;
+  min-height: 48px;
+  padding: 13px 15px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  outline: none;
+}
+
+.eld-contacts-field input::placeholder {
+  color: rgba(255, 255, 255, 0.44);
+}
+
+.eld-contacts-field input:focus {
+  border-color: rgba(255, 122, 24, 0.62);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.eld-contacts-field input.is-error {
+  border-color: #ff5a36;
+}
+
+.eld-contacts-error {
+  min-height: 14px;
+  color: #ff8d74;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.eld-contacts-policy {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  line-height: 1.38;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.eld-contacts-policy input {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  accent-color: #ff7a18;
+}
+
+.eld-contacts-policy a {
+  color: #ffad5c !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+.eld-contacts-submit {
+  appearance: none;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 12px;
+  padding: 13px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 122, 24, 1), rgba(255, 191, 87, 0.92));
+  color: #111111;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 14px 34px rgba(255, 122, 24, 0.22);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
+}
+
+.eld-contacts-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 42px rgba(255, 122, 24, 0.3);
+}
+
+.eld-contacts-submit:disabled {
+  cursor: default;
+  opacity: 0.72;
+  transform: none;
 }
 
 .eld-contacts-footer {
@@ -4446,7 +4623,7 @@ html {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-top: 56px;
+  margin-top: 42px;
   padding-top: 22px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.58);
@@ -4465,13 +4642,18 @@ html {
   white-space: nowrap;
 }
 
-@media (max-width: 780px) {
+@media (max-width: 980px) {
   .eld-contacts-main {
     grid-template-columns: 1fr;
   }
 
   .eld-contacts-actions {
-    max-width: 360px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: none;
+  }
+
+  .eld-contacts-form {
+    max-width: 560px;
   }
 }
 
@@ -4495,13 +4677,35 @@ html {
   }
 
   .eld-contacts-actions {
-    max-width: none;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 22px;
   }
 
-  .eld-contacts-phone,
-  .eld-contacts-social {
+  .eld-contacts-link {
     min-height: 44px;
     font-size: 13px;
+  }
+
+  .eld-contacts-pages {
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .eld-contacts-pages a {
+    min-height: 34px;
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .eld-contacts-form {
+    max-width: none;
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .eld-contacts-form h3 {
+    font-size: 25px;
   }
 
   .eld-contacts-footer {
@@ -4932,28 +5136,6 @@ html {
 }
 
 
-/* ===== CASES JSON MOBILE FIX ===== */
-@media (max-width: 640px) {
-  .eld-case-results-grid {
-    grid-template-columns: 1fr;
-    gap: 6px;
-  }
-
-  .eld-case-result-item {
-    padding: 8px;
-    border-radius: 12px;
-  }
-
-  .eld-case-result-item span {
-    margin-bottom: 5px;
-    font-size: 10px;
-  }
-
-  .eld-case-result-item strong {
-    font-size: 22px;
-  }
-}
-
 
 /* ===== МОБИЛЬНЫЕ КЕЙСЫ НА ГЛАВНОЙ: 1 КАРТОЧКА + ПЕРВЫЕ 3 + КНОПКА ===== */
 .eld-cases-mobile-more {
@@ -4997,4 +5179,40 @@ html {
   .eld-cases-section.is-cases-loaded .eld-cases-mobile-more {
     display: flex !important;
   }
+}
+
+
+/* ===== ФИКС: РЕЗУЛЬТАТЫ В КЕЙСАХ НА МОБИЛЬНОЙ 3 В РЯД ===== */
+@media (max-width: 640px) {
+  .eld-case-results-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+  }
+
+  .eld-case-result-item {
+    padding: 8px 6px !important;
+    border-radius: 12px !important;
+  }
+
+  .eld-case-result-item span {
+    margin-bottom: 5px !important;
+    font-size: 9px !important;
+    white-space: nowrap !important;
+  }
+
+  .eld-case-result-item strong {
+    font-size: 18px !important;
+  }
+}
+
+
+/* ===== ИКОНКИ В МЕНЮ И КОНТАКТАХ ===== */
+.eld-site-social-icon {
+  object-fit: contain !important;
+  fill: none !important;
+}
+
+.eld-site-social img.eld-site-social-icon,
+.eld-contacts-link img {
+  flex-shrink: 0;
 }

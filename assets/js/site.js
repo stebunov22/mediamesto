@@ -2021,21 +2021,37 @@
 })();
 
 
-/* ===== КОНТАКТЫ ИЗ GITHUB JSON ===== */
+/* ===== КОНТАКТЫ ИЗ GITHUB JSON + МИНИ-ФОРМА ===== */
 (function () {
   var contactsUrl = "https://stebunov22.github.io/mediamesto/assets/data/contacts.json";
 
   var fallbackContacts = {
     phone: "8 (993) 644-69-24",
     phone_href: "tel:+79936446924",
+    email: "info@mediamesto.ru",
+    email_href: "mailto:info@mediamesto.ru",
     company: "МедиаМесто",
     since: "2010",
     inn: "220415877799",
+    icons: {
+      phone: "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/phone.png?raw=true",
+      email: "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/email.png?raw=true",
+      whatsapp: "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/whatsapp.png?raw=true",
+      telegram: "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/telegram.png?raw=true",
+      max: "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/max.png?raw=true",
+      vk: "https://github.com/stebunov22/mediamesto/blob/main/assets/materials/icons/vkontakte.png?raw=true"
+    },
     socials: {
       whatsapp: { label: "WhatsApp", url: "https://wa.me/79936446924" },
       telegram: { label: "Telegram", url: "https://t.me/podsvetipro" },
       max: { label: "MAX", url: "#" },
       vk: { label: "VK", url: "#" }
+    },
+    pages: {
+      home: { label: "Главная", url: "https://mediamesto.ru" },
+      blog: { label: "Блог", url: "https://mediamesto.ru/blog" },
+      cases: { label: "Кейсы", url: "https://mediamesto.ru/cases" },
+      privacy: { label: "Политика конфиденциальности", url: "http://mediamesto.ru/privacy-policy" }
     }
   };
 
@@ -2048,6 +2064,14 @@
       .replace(/'/g, "&#39;");
   }
 
+  function mergeContacts(data) {
+    var contacts = Object.assign({}, fallbackContacts, data || {});
+    contacts.icons = Object.assign({}, fallbackContacts.icons, (data && data.icons) || {});
+    contacts.socials = Object.assign({}, fallbackContacts.socials, (data && data.socials) || {});
+    contacts.pages = Object.assign({}, fallbackContacts.pages, (data && data.pages) || {});
+    return contacts;
+  }
+
   function getSocials(data) {
     var socials = data && data.socials ? data.socials : {};
     var order = ["whatsapp", "telegram", "max", "vk"];
@@ -2058,28 +2082,53 @@
         return {
           key: key,
           label: item.label || key,
-          url: item.url || "#"
+          url: item.url || "#",
+          icon: item.icon || (data.icons && data.icons[key]) || ""
         };
       })
       .filter(Boolean);
   }
 
-  function applyContacts(data) {
-    var contacts = Object.assign({}, fallbackContacts, data || {});
-    contacts.socials = Object.assign({}, fallbackContacts.socials, (data && data.socials) || {});
+  function setIcon(img, src) {
+    if (!img || !src) return;
+    img.setAttribute("src", src);
+  }
 
+  function applyContacts(data) {
+    var contacts = mergeContacts(data);
     var phoneText = contacts.phone || fallbackContacts.phone;
     var phoneHref = contacts.phone_href || fallbackContacts.phone_href;
+    var emailText = contacts.email || fallbackContacts.email;
+    var emailHref = contacts.email_href || fallbackContacts.email_href;
     var telegramUrl = contacts.socials.telegram && contacts.socials.telegram.url ? contacts.socials.telegram.url : fallbackContacts.socials.telegram.url;
 
     document.querySelectorAll("[data-contact-phone], .eld-site-phone").forEach(function (link) {
-      link.textContent = phoneText;
+      var span = link.querySelector("span");
+      if (span) {
+        span.textContent = phoneText;
+      } else {
+        link.textContent = phoneText;
+      }
       link.setAttribute("href", phoneHref);
+    });
+
+    document.querySelectorAll("[data-contact-email]").forEach(function (link) {
+      var span = link.querySelector("span");
+      if (span) span.textContent = emailText;
+      link.setAttribute("href", emailHref);
     });
 
     document.querySelectorAll('[data-contact-social="telegram"], .eld-site-social').forEach(function (link) {
       link.setAttribute("href", telegramUrl);
+      setIcon(link.querySelector("[data-contact-icon]"), contacts.icons.telegram);
     });
+
+    document.querySelectorAll("[data-contact-icon='phone']").forEach(function (img) { setIcon(img, contacts.icons.phone); });
+    document.querySelectorAll("[data-contact-icon='email']").forEach(function (img) { setIcon(img, contacts.icons.email); });
+    document.querySelectorAll("[data-contact-icon='whatsapp']").forEach(function (img) { setIcon(img, contacts.icons.whatsapp); });
+    document.querySelectorAll("[data-contact-icon='telegram']").forEach(function (img) { setIcon(img, contacts.icons.telegram); });
+    document.querySelectorAll("[data-contact-icon='max']").forEach(function (img) { setIcon(img, contacts.icons.max); });
+    document.querySelectorAll("[data-contact-icon='vk']").forEach(function (img) { setIcon(img, contacts.icons.vk); });
 
     document.querySelectorAll("[data-contact-inn]").forEach(function (item) {
       item.textContent = contacts.inn ? "ИНН " + contacts.inn : "";
@@ -2090,11 +2139,26 @@
     });
 
     document.querySelectorAll("[data-contacts-actions]").forEach(function (box) {
+      var phoneIcon = contacts.icons.phone ? '<img src="' + escapeHtml(contacts.icons.phone) + '" alt="" aria-hidden="true" data-contact-icon="phone">' : "";
+      var emailIcon = contacts.icons.email ? '<img src="' + escapeHtml(contacts.icons.email) + '" alt="" aria-hidden="true" data-contact-icon="email">' : "";
       var socialsHtml = getSocials(contacts).map(function (social) {
-        return '<a class="eld-contacts-social" href="' + escapeHtml(social.url) + '" target="_blank" rel="noopener" data-contact-social="' + escapeHtml(social.key) + '">' + escapeHtml(social.label) + '</a>';
+        var icon = social.icon ? '<img src="' + escapeHtml(social.icon) + '" alt="" aria-hidden="true" data-contact-icon="' + escapeHtml(social.key) + '">' : "";
+        return '<a class="eld-contacts-link" href="' + escapeHtml(social.url) + '" target="_blank" rel="noopener" data-contact-social="' + escapeHtml(social.key) + '">' + icon + '<span>' + escapeHtml(social.label) + '</span></a>';
       }).join("");
 
-      box.innerHTML = '<a class="eld-contacts-phone" href="' + escapeHtml(phoneHref) + '" data-contact-phone>' + escapeHtml(phoneText) + '</a>' + socialsHtml;
+      box.innerHTML =
+        '<a class="eld-contacts-link eld-contacts-link-main" href="' + escapeHtml(phoneHref) + '" data-contact-phone>' + phoneIcon + '<span>' + escapeHtml(phoneText) + '</span></a>' +
+        '<a class="eld-contacts-link" href="' + escapeHtml(emailHref) + '" data-contact-email>' + emailIcon + '<span>' + escapeHtml(emailText) + '</span></a>' +
+        socialsHtml;
+    });
+
+    document.querySelectorAll("[data-contacts-pages]").forEach(function (nav) {
+      var order = ["home", "blog", "cases", "privacy"];
+      nav.innerHTML = order.map(function (key) {
+        var page = contacts.pages[key];
+        if (!page) return "";
+        return '<a href="' + escapeHtml(page.url || "#") + '">' + escapeHtml(page.label || key) + '</a>';
+      }).join("");
     });
   }
 
@@ -2115,9 +2179,115 @@
       });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", loadContacts);
-  } else {
+  function validateName(value) {
+    var clean = String(value || "").trim();
+    if (!clean) return "Введите имя";
+    if (clean.length < 2) return "Имя слишком короткое";
+    if (!/^[A-Za-zА-Яа-яЁёІіЇїЄє\s-]+$/.test(clean)) return "Введите корректное имя";
+    return "";
+  }
+
+  function validatePhone(value) {
+    var digits = String(value || "").replace(/\D/g, "");
+    if (!digits) return "Введите номер телефона";
+    if (digits.length < 10) return "Номер слишком короткий";
+    if (digits.length > 11) return "Введите корректный номер";
+    return "";
+  }
+
+  function setFieldError(input, errorEl, message) {
+    if (!input || !errorEl) return;
+    if (message) {
+      input.classList.add("is-error");
+      errorEl.textContent = message;
+    } else {
+      input.classList.remove("is-error");
+      errorEl.textContent = "";
+    }
+  }
+
+  function initContactsForm() {
+    document.querySelectorAll("[data-contact-form]").forEach(function (form) {
+      if (form.dataset.contactsFormInited === "true") return;
+      form.dataset.contactsFormInited = "true";
+
+      var nameInput = form.querySelector("[data-contact-name]");
+      var phoneInput = form.querySelector("[data-contact-phone-input]");
+      var policyInput = form.querySelector("[data-contact-policy]");
+      var nameError = form.querySelector("[data-contact-name-error]");
+      var phoneError = form.querySelector("[data-contact-phone-error]");
+      var policyError = form.querySelector("[data-contact-policy-error]");
+
+      if (nameInput) {
+        nameInput.addEventListener("input", function () {
+          setFieldError(nameInput, nameError, validateName(nameInput.value));
+        });
+      }
+
+      if (phoneInput) {
+        phoneInput.addEventListener("input", function () {
+          var value = phoneInput.value.replace(/[^\d+]/g, "");
+          if (value.indexOf("+") > 0) value = value.replace(/\+/g, "");
+          phoneInput.value = value;
+          setFieldError(phoneInput, phoneError, validatePhone(phoneInput.value));
+        });
+      }
+
+      if (policyInput) {
+        policyInput.addEventListener("change", function () {
+          if (policyError) policyError.textContent = policyInput.checked ? "" : "Примите политику обработки персональных данных";
+        });
+      }
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var nameMessage = validateName(nameInput ? nameInput.value : "");
+        var phoneMessage = validatePhone(phoneInput ? phoneInput.value : "");
+        var policyMessage = policyInput && policyInput.checked ? "" : "Примите политику обработки персональных данных";
+
+        setFieldError(nameInput, nameError, nameMessage);
+        setFieldError(phoneInput, phoneError, phoneMessage);
+        if (policyError) policyError.textContent = policyMessage;
+
+        if (nameMessage || phoneMessage || policyMessage) return;
+
+        var button = form.querySelector('button[type="submit"]');
+        if (button) {
+          button.textContent = "Отправляем...";
+          button.disabled = true;
+        }
+
+        var payload = {
+          form_type: "Получить консультацию / Контакты",
+          name: nameInput ? String(nameInput.value || "").trim() : "",
+          phone: phoneInput ? String(phoneInput.value || "").trim() : "",
+          comment: "Мини-форма из блока контактов",
+          disk_link: "",
+          summary: "Заявка на консультацию из блока контактов",
+          page_url: window.location.href,
+          policy_accept: "Да"
+        };
+
+        var sent = typeof window.eldSubmitToTildaHiddenForm === "function" ? window.eldSubmitToTildaHiddenForm(payload) : false;
+
+        if (sent && typeof window.eldShowCustomFormStatus === "function") {
+          window.eldShowCustomFormStatus(form, true, "Ваша заявка принята", "Мы свяжемся с вами в ближайшее время.");
+        } else if (button) {
+          button.textContent = "Заявка отправлена";
+        }
+      });
+    });
+  }
+
+  function init() {
     loadContacts();
+    initContactsForm();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
 })();
