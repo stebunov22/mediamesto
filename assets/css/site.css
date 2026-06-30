@@ -4355,7 +4355,7 @@ html {
   background: #090909;
   color: #ffffff;
   font-family: Arial, sans-serif;
-  padding: 96px 0;
+  padding: 96px 0 32px;
   overflow: hidden;
 }
 
@@ -4368,7 +4368,7 @@ html {
 }
 
 .eld-contacts-card {
-  min-height: 280px;
+  min-height: 320px;
   padding: 42px;
   border-radius: 32px;
   background:
@@ -4378,7 +4378,14 @@ html {
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
 }
 
-.eld-contacts-card h2 {
+.eld-contacts-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.eld-contacts-title-box h2 {
   margin: 0 0 16px;
   color: #ffffff;
   font-size: clamp(34px, 4.2vw, 64px);
@@ -4387,7 +4394,7 @@ html {
   letter-spacing: -0.055em;
 }
 
-.eld-contacts-card p {
+.eld-contacts-title-box p {
   margin: 0;
   max-width: 620px;
   color: rgba(255, 255, 255, 0.68);
@@ -4396,35 +4403,119 @@ html {
   font-weight: 600;
 }
 
+.eld-contacts-actions {
+  display: grid;
+  gap: 10px;
+}
+
+.eld-contacts-phone,
+.eld-contacts-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  padding: 13px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 900;
+  text-decoration: none !important;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+}
+
+.eld-contacts-phone {
+  background: linear-gradient(135deg, rgba(255, 122, 24, 1), rgba(255, 191, 87, 0.92));
+  color: #111111 !important;
+  box-shadow: 0 14px 34px rgba(255, 122, 24, 0.22);
+}
+
+.eld-contacts-social {
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 122, 24, 0.28);
+  color: #ffad5c !important;
+}
+
+.eld-contacts-phone:hover,
+.eld-contacts-social:hover {
+  transform: translateY(-2px);
+}
+
+.eld-contacts-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 56px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 13px;
+  line-height: 1.35;
+  font-weight: 800;
+}
+
+.eld-contacts-requisites {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+}
+
+.eld-contacts-copy {
+  white-space: nowrap;
+}
+
+@media (max-width: 780px) {
+  .eld-contacts-main {
+    grid-template-columns: 1fr;
+  }
+
+  .eld-contacts-actions {
+    max-width: 360px;
+  }
+}
+
 @media (max-width: 640px) {
   .eld-contacts-section {
-    padding: 64px 0;
+    padding: 64px 0 24px;
   }
 
   .eld-contacts-card {
-    min-height: 220px;
+    min-height: 260px;
     padding: 24px 18px;
     border-radius: 22px;
   }
 
-  .eld-contacts-card h2 {
+  .eld-contacts-title-box h2 {
     font-size: 38px;
   }
 
-  .eld-contacts-card p {
+  .eld-contacts-title-box p {
     font-size: 15px;
   }
+
+  .eld-contacts-actions {
+    max-width: none;
+  }
+
+  .eld-contacts-phone,
+  .eld-contacts-social {
+    min-height: 44px;
+    font-size: 13px;
+  }
+
+  .eld-contacts-footer {
+    display: grid;
+    gap: 10px;
+    margin-top: 34px;
+    padding-top: 18px;
+    font-size: 12px;
+  }
+
+  .eld-contacts-copy {
+    white-space: normal;
+  }
 }
-
-
-
-
-
-
-
-
-
-
 
 /* ===== МОБИЛЬНОЕ МЕНЮ ===== */
 .eld-mobile-burger,

@@ -2019,3 +2019,105 @@
   window.addEventListener("wheel", stopAnimation, { passive: true });
   window.addEventListener("touchstart", stopAnimation, { passive: true });
 })();
+
+
+/* ===== КОНТАКТЫ ИЗ GITHUB JSON ===== */
+(function () {
+  var contactsUrl = "https://stebunov22.github.io/mediamesto/assets/data/contacts.json";
+
+  var fallbackContacts = {
+    phone: "8 (993) 644-69-24",
+    phone_href: "tel:+79936446924",
+    company: "МедиаМесто",
+    since: "2010",
+    inn: "220415877799",
+    socials: {
+      whatsapp: { label: "WhatsApp", url: "https://wa.me/79936446924" },
+      telegram: { label: "Telegram", url: "https://t.me/podsvetipro" },
+      max: { label: "MAX", url: "#" },
+      vk: { label: "VK", url: "#" }
+    }
+  };
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function getSocials(data) {
+    var socials = data && data.socials ? data.socials : {};
+    var order = ["whatsapp", "telegram", "max", "vk"];
+    return order
+      .map(function (key) {
+        var item = socials[key];
+        if (!item) return null;
+        return {
+          key: key,
+          label: item.label || key,
+          url: item.url || "#"
+        };
+      })
+      .filter(Boolean);
+  }
+
+  function applyContacts(data) {
+    var contacts = Object.assign({}, fallbackContacts, data || {});
+    contacts.socials = Object.assign({}, fallbackContacts.socials, (data && data.socials) || {});
+
+    var phoneText = contacts.phone || fallbackContacts.phone;
+    var phoneHref = contacts.phone_href || fallbackContacts.phone_href;
+    var telegramUrl = contacts.socials.telegram && contacts.socials.telegram.url ? contacts.socials.telegram.url : fallbackContacts.socials.telegram.url;
+
+    document.querySelectorAll("[data-contact-phone], .eld-site-phone").forEach(function (link) {
+      link.textContent = phoneText;
+      link.setAttribute("href", phoneHref);
+    });
+
+    document.querySelectorAll('[data-contact-social="telegram"], .eld-site-social').forEach(function (link) {
+      link.setAttribute("href", telegramUrl);
+    });
+
+    document.querySelectorAll("[data-contact-inn]").forEach(function (item) {
+      item.textContent = contacts.inn ? "ИНН " + contacts.inn : "";
+    });
+
+    document.querySelectorAll("[data-contact-copy]").forEach(function (item) {
+      item.textContent = "© " + (contacts.company || "МедиаМесто") + ", " + (contacts.since || "2010");
+    });
+
+    document.querySelectorAll("[data-contacts-actions]").forEach(function (box) {
+      var socialsHtml = getSocials(contacts).map(function (social) {
+        return '<a class="eld-contacts-social" href="' + escapeHtml(social.url) + '" target="_blank" rel="noopener" data-contact-social="' + escapeHtml(social.key) + '">' + escapeHtml(social.label) + '</a>';
+      }).join("");
+
+      box.innerHTML = '<a class="eld-contacts-phone" href="' + escapeHtml(phoneHref) + '" data-contact-phone>' + escapeHtml(phoneText) + '</a>' + socialsHtml;
+    });
+  }
+
+  function loadContacts() {
+    applyContacts(fallbackContacts);
+
+    fetch(contactsUrl + "?v=" + Date.now(), {
+      method: "GET",
+      cache: "no-store"
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error("contacts.json not found");
+        return response.json();
+      })
+      .then(applyContacts)
+      .catch(function () {
+        applyContacts(fallbackContacts);
+      });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadContacts);
+  } else {
+    loadContacts();
+  }
+})();

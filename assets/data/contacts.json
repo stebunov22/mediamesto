@@ -1,0 +1,25 @@
+{
+  "phone": "8 (993) 644-69-24",
+  "phone_href": "tel:+79936446924",
+  "company": "МедиаМесто",
+  "since": "2010",
+  "inn": "220415877799",
+  "socials": {
+    "whatsapp": {
+      "label": "WhatsApp",
+      "url": "https://wa.me/79936446924"
+    },
+    "telegram": {
+      "label": "Telegram",
+      "url": "https://t.me/podsvetipro"
+    },
+    "max": {
+      "label": "MAX",
+      "url": "#"
+    },
+    "vk": {
+      "label": "VK",
+      "url": "#"
+    }
+  }
+}
