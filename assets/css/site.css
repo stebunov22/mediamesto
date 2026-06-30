@@ -1359,8 +1359,12 @@
   }
 
   .eld-cases-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .eld-cases-grid .eld-case-card:nth-child(n + 4) {
+    display: none !important;
   }
 
   .eld-case-card {
@@ -4856,5 +4860,50 @@ html {
 
   .eld-case-result-item strong {
     font-size: 22px;
+  }
+}
+
+
+/* ===== МОБИЛЬНЫЕ КЕЙСЫ НА ГЛАВНОЙ: 1 КАРТОЧКА + ПЕРВЫЕ 3 + КНОПКА ===== */
+.eld-cases-mobile-more {
+  display: none;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.eld-cases-mobile-more a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 122, 24, 1), rgba(255, 191, 87, 0.92));
+  color: #111111 !important;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 900;
+  text-decoration: none !important;
+  box-shadow: 0 14px 34px rgba(255, 122, 24, 0.22);
+}
+
+@media (max-width: 640px) {
+  .eld-cases-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .eld-cases-grid .eld-case-card:nth-child(n + 4) {
+    display: none !important;
+  }
+
+  .eld-cases-head .eld-cases-all {
+    display: none !important;
+  }
+
+  .eld-cases-section.is-cases-loaded .eld-cases-mobile-more {
+    display: flex !important;
   }
 }

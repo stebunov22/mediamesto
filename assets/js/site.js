@@ -708,6 +708,7 @@
     var cases = Array.isArray(items) ? items : [];
     if (!cases.length) cases = fallbackCases;
     grid.innerHTML = cases.map(cardHtml).join("");
+    root.classList.add("is-cases-loaded");
   }
 
   function showError() {
