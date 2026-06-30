@@ -2759,7 +2759,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 4 / 3;
     margin: 12px 12px 0;
     border-radius: 22px;
     overflow: hidden;
@@ -2943,7 +2943,7 @@
     .eld-rss-blog-image {
       margin: 8px 8px 0;
       border-radius: 14px;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 4 / 3;
     }
 
     .eld-rss-blog-tag {

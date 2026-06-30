@@ -1,7 +1,14 @@
 # Mediamesto / Tilda + GitHub
 
-Версия: 20260701-contact-icons-form-v1
+Обновление: blog43-v1.
 
-Контакты подтягиваются из `assets/data/contacts.json`.
-Кейсы подтягиваются из `assets/data/cases.json`.
-Папки с материалами в архив не добавлены.
+Изменение:
+- изображения в блоке «Блог» переведены в пропорцию 4:3 на десктопе и мобильной версии;
+- Tilda должна подключать CSS/JS с `?v=20260701-blog43-v1`.
+
+Файлы:
+- `assets/css/site.css`
+- `assets/js/site.js`
+- `assets/data/cases.json`
+- `assets/data/contacts.json`
+- `pages/main/body.html`
