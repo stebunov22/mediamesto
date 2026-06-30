@@ -1,0 +1,62 @@
+[
+  {
+    "category": "Рестораны и кафе",
+    "title": "Ресторан «У Озера»",
+    "description": "Реклама для жителей коттеджных посёлков рядом с точкой. Акцент на бронирование столов и семейные вечера.",
+    "requests": "+18%",
+    "sales": "+12%",
+    "clicks": "+240",
+    "period": "3 месяца",
+    "url": "https://mediamesto.ru/cases"
+  },
+  {
+    "category": "Дизайн мебели",
+    "title": "Studio Mebel",
+    "description": "Показывали ролик собственникам домов, которым актуальны кухни, гардеробные и мебель под размер.",
+    "requests": "+11%",
+    "sales": "+16%",
+    "clicks": "+190",
+    "period": "6 месяцев",
+    "url": "https://mediamesto.ru/cases"
+  },
+  {
+    "category": "Ремонт домов",
+    "title": "ДомРемонт 47",
+    "description": "Продвижение ремонта и отделки для владельцев загородных домов в районе размещения.",
+    "requests": "+15%",
+    "sales": "+14%",
+    "clicks": "+210",
+    "period": "12 месяцев",
+    "url": "https://mediamesto.ru/cases"
+  },
+  {
+    "category": "Автосервис",
+    "title": "AutoHelp Service",
+    "description": "Ролик для водителей и жителей района с оффером на диагностику и сервис рядом с домом.",
+    "requests": "+23%",
+    "sales": "+19%",
+    "clicks": "+320",
+    "period": "1 год",
+    "url": "https://mediamesto.ru/cases"
+  },
+  {
+    "category": "Ландшафт и участки",
+    "title": "Green Yard",
+    "description": "Реклама сезонных работ для владельцев участков: благоустройство, газон, дорожки и уход.",
+    "requests": "+9%",
+    "sales": "+11%",
+    "clicks": "+160",
+    "period": "3 месяца",
+    "url": "https://mediamesto.ru/cases"
+  },
+  {
+    "category": "Клининг и уборка",
+    "title": "ЧистоДом",
+    "description": "Продвижение уборки домов после ремонта, сезонной уборки и регулярного обслуживания.",
+    "requests": "+31%",
+    "sales": "+22%",
+    "clicks": "+410",
+    "period": "2 года",
+    "url": "https://mediamesto.ru/cases"
+  }
+]

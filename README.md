@@ -1,10 +1,14 @@
-# mediamesto GitHub assets
+# Mediamesto / Tilda + GitHub
 
-Обновление: подключены формы тарифов к скрытой Tilda-форме #rec2417439761.
+Обновление: casesjson-v1.
 
-Файлы для GitHub Pages:
-- assets/css/site.css
-- assets/js/site.js
-- pages/main/body.html
+Что изменено:
+- кейсы вынесены в `assets/data/cases.json`;
+- в результатах кейса фиксированные поля: `requests`, `sales`, `clicks`;
+- блок кейсов строится через JS из JSON;
+- движущаяся фотолента удалена из HTML и CSS;
+- папка `assets/materials` не включается в рабочий архив.
 
-Папка с материалами не добавлена — материалы обновляются вручную.
+Tilda должна подключать:
+- CSS: `assets/css/site.css?v=20260701-casesjson-v1`
+- JS: `assets/js/site.js?v=20260701-casesjson-v1`

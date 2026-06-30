@@ -626,6 +626,109 @@
 
 })();
 
+
+/* ===== БЛОК 3 / КЕЙСЫ ИЗ JSON ===== */
+(function () {
+  var root = document.querySelector(".eld-cases-section");
+  if (!root) return;
+
+  var grid = root.querySelector("[data-cases-grid]");
+  if (!grid) return;
+
+  var fallbackCases = [
+    { category: "Рестораны и кафе", title: "Ресторан «У Озера»", description: "Реклама для жителей коттеджных посёлков рядом с точкой. Акцент на бронирование столов и семейные вечера.", requests: "+18%", sales: "+12%", clicks: "+240", period: "3 месяца", url: "https://mediamesto.ru/cases" },
+    { category: "Дизайн мебели", title: "Studio Mebel", description: "Показывали ролик собственникам домов, которым актуальны кухни, гардеробные и мебель под размер.", requests: "+11%", sales: "+16%", clicks: "+190", period: "6 месяцев", url: "https://mediamesto.ru/cases" },
+    { category: "Ремонт домов", title: "ДомРемонт 47", description: "Продвижение ремонта и отделки для владельцев загородных домов в районе размещения.", requests: "+15%", sales: "+14%", clicks: "+210", period: "12 месяцев", url: "https://mediamesto.ru/cases" },
+    { category: "Автосервис", title: "AutoHelp Service", description: "Ролик для водителей и жителей района с оффером на диагностику и сервис рядом с домом.", requests: "+23%", sales: "+19%", clicks: "+320", period: "1 год", url: "https://mediamesto.ru/cases" },
+    { category: "Ландшафт и участки", title: "Green Yard", description: "Реклама сезонных работ для владельцев участков: благоустройство, газон, дорожки и уход.", requests: "+9%", sales: "+11%", clicks: "+160", period: "3 месяца", url: "https://mediamesto.ru/cases" },
+    { category: "Клининг и уборка", title: "ЧистоДом", description: "Продвижение уборки домов после ремонта, сезонной уборки и регулярного обслуживания.", requests: "+31%", sales: "+22%", clicks: "+410", period: "2 года", url: "https://mediamesto.ru/cases" }
+  ];
+
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function normalizeCase(item) {
+    item = item || {};
+
+    var resultObject = item.results && !Array.isArray(item.results) ? item.results : {};
+
+    return {
+      category: item.category || item.direction || "Кейс",
+      title: item.title || "Без названия",
+      description: item.description || item.text || "",
+      requests: item.requests || resultObject.requests || "—",
+      sales: item.sales || resultObject.sales || "—",
+      clicks: item.clicks || resultObject.clicks || "—",
+      period: item.period || item.duration || "",
+      url: item.url || item.link || "https://mediamesto.ru/cases"
+    };
+  }
+
+  function resultHtml(label, value) {
+    return (
+      '<div class="eld-case-result-item">' +
+        '<span>' + escapeHtml(label) + '</span>' +
+        '<strong>' + escapeHtml(value) + '</strong>' +
+      '</div>'
+    );
+  }
+
+  function cardHtml(rawItem) {
+    var item = normalizeCase(rawItem);
+
+    return (
+      '<article class="eld-case-card">' +
+        '<div class="eld-case-body">' +
+          '<span class="eld-case-direction">' + escapeHtml(item.category) + '</span>' +
+          '<div class="eld-case-top">' +
+            '<h3>' + escapeHtml(item.title) + '</h3>' +
+            (item.description ? '<p>' + escapeHtml(item.description) + '</p>' : '') +
+          '</div>' +
+          '<div class="eld-case-results">' +
+            '<div class="eld-case-results-title">Результаты</div>' +
+            '<div class="eld-case-results-grid">' +
+              resultHtml('Заявки', item.requests) +
+              resultHtml('Продажи', item.sales) +
+              resultHtml('Переходы', item.clicks) +
+            '</div>' +
+          '</div>' +
+          (item.period ? '<div class="eld-case-period"><span>Срок размещения</span><strong>' + escapeHtml(item.period) + '</strong></div>' : '') +
+          '<a class="eld-case-open" href="' + escapeHtml(item.url) + '">Открыть кейс</a>' +
+        '</div>' +
+      '</article>'
+    );
+  }
+
+  function renderCases(items) {
+    var cases = Array.isArray(items) ? items : [];
+    if (!cases.length) cases = fallbackCases;
+    grid.innerHTML = cases.map(cardHtml).join("");
+  }
+
+  function showError() {
+    renderCases(fallbackCases);
+  }
+
+  var dataUrl = grid.getAttribute("data-cases-url") || "https://stebunov22.github.io/mediamesto/assets/data/cases.json";
+  var url = dataUrl + (dataUrl.indexOf("?") === -1 ? "?" : "&") + "t=" + Date.now();
+
+  fetch(url, { cache: "no-store" })
+    .then(function (response) {
+      if (!response.ok) throw new Error("cases json not loaded");
+      return response.json();
+    })
+    .then(function (data) {
+      var cases = Array.isArray(data) ? data : (Array.isArray(data.cases) ? data.cases : []);
+      renderCases(cases);
+    })
+    .catch(showError);
+})();
+
 /* ===== БЛОК 4 ===== */
 (function () {
     var pointsData = [
