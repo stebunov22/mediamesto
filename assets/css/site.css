@@ -5516,3 +5516,52 @@ html {
     align-items: flex-start !important;
   }
 }
+
+
+/* ===== FOOTER CONTACTS: PAGES BOTTOM + SOCIAL SPACING / 20260701-footer-bottom-v1 ===== */
+.eld-contacts-main {
+  align-items: stretch !important;
+}
+
+.eld-contacts-info {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100% !important;
+}
+
+.eld-contacts-links-layout {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+}
+
+.eld-contacts-actions {
+  gap: 18px !important;
+}
+
+.eld-contacts-pages {
+  margin-top: auto !important;
+  padding-top: 26px !important;
+}
+
+@media (max-width: 980px) {
+  .eld-contacts-info {
+    min-height: 0 !important;
+  }
+
+  .eld-contacts-pages {
+    margin-top: 0 !important;
+    padding-top: 12px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .eld-contacts-actions {
+    gap: 16px !important;
+  }
+
+  .eld-contacts-pages {
+    padding-top: 10px !important;
+  }
+}

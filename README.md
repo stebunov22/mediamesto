@@ -1,12 +1,7 @@
 # Mediamesto / Tilda + GitHub
 
-Версия: 20260701-footer-social-icons-v1
+Обновление: footer-bottom-links.
 
-Что внутри:
-- `assets/css/site.css`
-- `assets/js/site.js`
-- `assets/data/cases.json`
-- `assets/data/contacts.json`
-- `pages/main/body.html`
-
-Tilda подключает CSS/JS с `?v=20260701-footer-social-icons-v1`.
+- Страницы сайта в контактах выравниваются по низу левого блока.
+- Расстояние между строкой телефон/почта и иконками соцсетей увеличено.
+- CSS/JS подключаются с `?v=20260701-footer-bottom-v1`.
