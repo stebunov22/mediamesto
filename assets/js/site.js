@@ -2143,13 +2143,15 @@
       var emailIcon = contacts.icons.email ? '<img src="' + escapeHtml(contacts.icons.email) + '" alt="" aria-hidden="true" data-contact-icon="email">' : "";
       var socialsHtml = getSocials(contacts).map(function (social) {
         var icon = social.icon ? '<img src="' + escapeHtml(social.icon) + '" alt="" aria-hidden="true" data-contact-icon="' + escapeHtml(social.key) + '">' : "";
-        return '<a class="eld-contacts-link" href="' + escapeHtml(social.url) + '" target="_blank" rel="noopener" data-contact-social="' + escapeHtml(social.key) + '">' + icon + '<span>' + escapeHtml(social.label) + '</span></a>';
+        return '<a class="eld-contacts-social-icon" href="' + escapeHtml(social.url) + '" target="_blank" rel="noopener" aria-label="' + escapeHtml(social.label) + '" title="' + escapeHtml(social.label) + '" data-contact-social="' + escapeHtml(social.key) + '">' + icon + '</a>';
       }).join("");
 
       box.innerHTML =
-        '<a class="eld-contacts-link" href="' + escapeHtml(phoneHref) + '" data-contact-phone>' + phoneIcon + '<span>' + escapeHtml(phoneText) + '</span></a>' +
-        '<a class="eld-contacts-link" href="' + escapeHtml(emailHref) + '" data-contact-email>' + emailIcon + '<span>' + escapeHtml(emailText) + '</span></a>' +
-        socialsHtml;
+        '<div class="eld-contacts-direct">' +
+          '<a class="eld-contacts-link eld-contacts-direct-link" href="' + escapeHtml(phoneHref) + '" data-contact-phone>' + phoneIcon + '<span>' + escapeHtml(phoneText) + '</span></a>' +
+          '<a class="eld-contacts-link eld-contacts-direct-link" href="' + escapeHtml(emailHref) + '" data-contact-email>' + emailIcon + '<span>' + escapeHtml(emailText) + '</span></a>' +
+        '</div>' +
+        '<div class="eld-contacts-socials" aria-label="Социальные сети">' + socialsHtml + '</div>';
     });
 
     document.querySelectorAll("[data-contacts-pages]").forEach(function (nav) {

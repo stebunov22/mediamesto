@@ -1,14 +1,12 @@
 # Mediamesto / Tilda + GitHub
 
-Версия: 20260701-contact-layout-v1
+Версия: 20260701-footer-social-icons-v1
 
-Изменения:
-- кнопки в контактах идут вертикально вниз;
-- все контактные кнопки одного стиля, как Telegram в меню;
-- номер телефона в меню не выделяется отдельным цветом;
-- ссылки страниц в контактах — обычным текстовым списком справа от кнопок;
-- блог: изображения 4:3;
-- контакты подтягиваются из `assets/data/contacts.json`;
-- кейсы подтягиваются из `assets/data/cases.json`.
+Что внутри:
+- `assets/css/site.css`
+- `assets/js/site.js`
+- `assets/data/cases.json`
+- `assets/data/contacts.json`
+- `pages/main/body.html`
 
-Материалы/иконки в архив не добавлялись.
+Tilda подключает CSS/JS с `?v=20260701-footer-social-icons-v1`.
