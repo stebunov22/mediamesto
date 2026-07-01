@@ -2147,7 +2147,7 @@
       }).join("");
 
       box.innerHTML =
-        '<a class="eld-contacts-link eld-contacts-link-main" href="' + escapeHtml(phoneHref) + '" data-contact-phone>' + phoneIcon + '<span>' + escapeHtml(phoneText) + '</span></a>' +
+        '<a class="eld-contacts-link" href="' + escapeHtml(phoneHref) + '" data-contact-phone>' + phoneIcon + '<span>' + escapeHtml(phoneText) + '</span></a>' +
         '<a class="eld-contacts-link" href="' + escapeHtml(emailHref) + '" data-contact-email>' + emailIcon + '<span>' + escapeHtml(emailText) + '</span></a>' +
         socialsHtml;
     });

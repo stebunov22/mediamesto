@@ -4219,7 +4219,8 @@ html {
   transition: background 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
 }
 
-.eld-site-social {
+.eld-site-social,
+.eld-site-phone {
   gap: 7px;
   background: rgba(255, 255, 255, 0.055);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -4234,11 +4235,6 @@ html {
   flex: 0 0 auto;
 }
 
-.eld-site-phone {
-  background: rgba(255, 122, 24, 0.12);
-  border: 1px solid rgba(255, 122, 24, 0.28);
-  color: #ffad5c !important;
-}
 
 .eld-site-order {
   background: linear-gradient(135deg, #ff7a18, #ffbf57);
@@ -4408,87 +4404,97 @@ html {
   font-weight: 600;
 }
 
-.eld-contacts-actions {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+.eld-contacts-links-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 34px;
   max-width: 760px;
   margin-top: 28px;
+}
+
+.eld-contacts-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: fit-content;
+  flex: 0 0 auto;
 }
 
 .eld-contacts-link {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 9px;
-  min-width: 0;
-  width: 100%;
-  min-height: 48px;
-  padding: 13px 14px;
+  justify-content: flex-end;
+  gap: 7px;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 40px;
+  padding: 10px 13px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.055);
-  border: 1px solid rgba(255, 122, 24, 0.28);
-  color: #ffad5c !important;
-  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-size: 13px;
   line-height: 1;
   font-weight: 900;
+  text-align: right;
   text-decoration: none !important;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+  white-space: nowrap;
+  transition: background 0.12s ease, color 0.12s ease, box-shadow 0.12s ease, transform 0.12s ease;
 }
 
 .eld-contacts-link-main {
-  background: linear-gradient(135deg, rgba(255, 122, 24, 1), rgba(255, 191, 87, 0.92));
-  border-color: rgba(255, 191, 87, 0.72);
-  color: #111111 !important;
-  box-shadow: 0 14px 34px rgba(255, 122, 24, 0.22);
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.82) !important;
+  box-shadow: none;
 }
 
 .eld-contacts-link img {
   display: block;
-  width: 19px;
-  height: 19px;
+  width: 17px;
+  height: 17px;
   object-fit: contain;
   flex: 0 0 auto;
 }
 
 .eld-contacts-link span {
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .eld-contacts-link:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.075);
+  color: #ffffff !important;
 }
 
 .eld-contacts-pages {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 10px;
-  max-width: 760px;
-  margin-top: 22px;
+  margin-top: 2px;
+  padding-left: 8px;
+  flex: 0 1 auto;
 }
 
 .eld-contacts-pages a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 36px;
-  padding: 9px 12px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.045);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.72) !important;
-  font-size: 12px;
-  line-height: 1;
-  font-weight: 900;
+  display: inline;
+  min-height: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  color: rgba(255, 255, 255, 0.62) !important;
+  font-size: 13px;
+  line-height: 1.25;
+  font-weight: 800;
   text-decoration: none !important;
-  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  transition: color 0.16s ease;
 }
 
 .eld-contacts-pages a:hover {
   color: #ffad5c !important;
-  border-color: rgba(255, 122, 24, 0.32);
-  background: rgba(255, 122, 24, 0.1);
 }
 
 .eld-contacts-form-box {
@@ -5215,4 +5221,126 @@ html {
 .eld-site-social img.eld-site-social-icon,
 .eld-contacts-link img {
   flex-shrink: 0;
+}
+
+
+/* ===== ПРАВКА КОНТАКТОВ: ВЕРТИКАЛЬНЫЕ КНОПКИ И ТЕКСТОВЫЕ ССЫЛКИ ===== */
+.eld-site-phone {
+  background: rgba(255, 255, 255, 0.055) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  box-shadow: none !important;
+}
+
+.eld-site-phone:hover,
+.eld-site-social:hover {
+  background: rgba(255, 255, 255, 0.075) !important;
+  color: #ffffff !important;
+}
+
+.eld-contacts-links-layout {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 34px !important;
+  max-width: 760px !important;
+  margin-top: 28px !important;
+}
+
+.eld-contacts-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+}
+
+.eld-contacts-link,
+.eld-contacts-link-main {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 7px !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  min-height: 40px !important;
+  padding: 10px 13px !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, 0.055) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  box-shadow: none !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+  font-weight: 900 !important;
+  text-align: right !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+}
+
+.eld-contacts-link img {
+  width: 17px !important;
+  height: 17px !important;
+  object-fit: contain !important;
+}
+
+.eld-contacts-pages {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+  margin-top: 2px !important;
+  padding-left: 8px !important;
+}
+
+.eld-contacts-pages a {
+  display: inline !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  color: rgba(255, 255, 255, 0.62) !important;
+  font-size: 13px !important;
+  line-height: 1.25 !important;
+  font-weight: 800 !important;
+  text-decoration: none !important;
+}
+
+.eld-contacts-pages a:hover {
+  color: #ffad5c !important;
+}
+
+@media (max-width: 640px) {
+  .eld-contacts-links-layout {
+    gap: 18px !important;
+    margin-top: 22px !important;
+  }
+
+  .eld-contacts-link,
+  .eld-contacts-link-main {
+    min-height: 38px !important;
+    padding: 9px 12px !important;
+    font-size: 12px !important;
+  }
+
+  .eld-contacts-pages {
+    gap: 8px !important;
+    padding-left: 4px !important;
+  }
+
+  .eld-contacts-pages a {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .eld-contacts-links-layout {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+
+  .eld-contacts-pages {
+    padding-left: 12px !important;
+  }
 }
